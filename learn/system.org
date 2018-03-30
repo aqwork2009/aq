@@ -1,5 +1,5 @@
 
-** 修复双系统引导
+** 修复双系统引导o
 1） /etc/grub.d/40_custom
 
 2） menuentry 'Windows 10'{
@@ -36,12 +36,7 @@ make install   #非root 用户可使用 sudo make install 安装
 
 或者 echo "/dev/sda1 /mnt/windows ntfs-3g defaults 0 0 " >> /etc/fstab (注意使用 '>> ' 追加重定向，使用 '>' 会将/etc/fstab文件覆盖，当然，修改/etc/fstab 文件需要root 权限)
 
-顾问
-研发中心
-受电弓技术创新
-
-** git
-
+** git learn
 echo "# aq" >> README.md
 git init
 git add README.md
@@ -51,3 +46,4 @@ git push -u origin master
 
 git remote add origin https://github.com/aqwork2009/aq.git
 git push -u origin master
+
