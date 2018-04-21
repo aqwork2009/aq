@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo mount -t ntfs-3g /dev/sda1 /home/cpan
+nautilus /home/library/book/qt&
+emacs /home/library/github_aq/learn &
+firefox&
+qt&

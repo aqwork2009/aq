@@ -1,0 +1,33 @@
+安装目录/opt/Qt
+
+编译Lambda QMAKE_CXXFLAGS += -std=c++0x
+
+C++ RTTI
+https://blog.csdn.net/three_bird/article/details/51479175
+
+类型转换 http://www.cnblogs.com/tgycoder/p/5303701.html
+
+资源文件国际化：document-open-fr.png:
+
+第10章
+
+
+Qt 提供了几种布局管理器供我们选择:
+QHBoxLayout:按照水平方向从左到右布局;
+QVBoxLayout:按照竖直方向从上到下布局;
+QGridLayout:在一个网格中进行布局,类似于 HTML 的 table;
+QFormLayout:按照表格布局,每一行前面是一段文本,文本后面跟随一个组件(通
+常是输入框),类似 HTML 的 form;
+QStackedLayout:层叠的布局,允许我们将几个组件按照 Z 轴方向堆叠,可以形
+成向导那种一页一页的效果。
+
+
+Qt 的事件对象有两个函数:accept() 和 ignore()。正如它们的名字一
+样,前者用来告诉 Qt,这个类的事件处理函数想要这个事件;后者则告诉 Qt,这个类的事件
+处理函数不想要这个事件。无论是 accept() 还是 ignore(),该类不想要的事件都会被继续发送
+给其父组件。在事件处理函数中,可以使用 isAccepted() 来查询这个事件是不是已经被接收了。
+
+不想让它继续转发,就返回 true,否则返回 false
+
+
+

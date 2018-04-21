@@ -1,0 +1,80 @@
+** Qt Creator常用快捷键
+原创 2013年09月12日 22:56:06
+
+【Ctrl + I】 选中的文字自动缩进
+【Ctrl + /】 注释行和取消注释行
+【Ctrl + D】 删除行,缺省，请自行设置
+【Ctrl + [，Ctrl + ]】 移动到段落开始和移动到段落结尾
+
+【Alt + /】 代码自动补齐功能,系统默认是【Ctrl + Space】,请自行更改
+【F2】 声明和定义之间切换 
+【F4】 头文件和源文件之间切换 
+【Esc】 返回到代码编辑状态 
+【Alt +left，Alt +right】页面之间切换 
+
+【Ctrl + Shift + F】 弹出查找对话框
+【Ctrl + F】 查找当前文档 
+【F3】 查找下一个
+【Shift + F3】 查找上一个
+
+【Ctrl + 1】 激活欢迎模式 
+【Ctrl + 2】 激活编辑模式 
+【Ctrl + 3】 激活调试模式 
+【Ctrl + 4】 激活项目模式 
+【Ctrl + 5】 激活帮助模式 
+【Ctrl + 6】 激活输出模式 
+
+【Alt + 0】 隐藏或显示边栏 
+【Alt + 1】 切换至生成窗口 
+【Alt + 2】 切换至搜索结果窗口 
+【Alt + 3】 切换至应用输出窗口 
+【Alt + 4】 切换至编译输出窗口 
+
+【Ctrl + M】 添加删除书签
+【Alt + M】 激活书签窗口
+【Ctrl + .】 下一个书签 
+【Ctrl + ,】 上一个书签
+
+【F5】 调试 
+【Shift+F5】 停止调试 
+【F10】 单步跳过 
+【F11】 单步进入 
+【Shift + F11】 单步跳出 
+【Ctrl + Shift + F5】 重启调试 
+【F9】 切换断点 
+
+
+Q
+** 安装目录/opt/Qt
+
+编译Lambda QMAKE_CXXFLAGS += -std=c++0x
+
+C++ RTTI
+https://blog.csdn.net/three_bird/article/details/51479175
+
+类型转换 http://www.cnblogs.com/tgycoder/p/5303701.html
+
+资源文件国际化：document-open-fr.png:
+
+第10章
+
+
+Qt 提供了几种布局管理器供我们选择:
+QHBoxLayout:按照水平方向从左到右布局;
+QVBoxLayout:按照竖直方向从上到下布局;
+QGridLayout:在一个网格中进行布局,类似于 HTML 的 table;
+QFormLayout:按照表格布局,每一行前面是一段文本,文本后面跟随一个组件(通
+常是输入框),类似 HTML 的 form;
+QStackedLayout:层叠的布局,允许我们将几个组件按照 Z 轴方向堆叠,可以形
+成向导那种一页一页的效果。
+
+
+Qt 的事件对象有两个函数:accept() 和 ignore()。正如它们的名字一
+样,前者用来告诉 Qt,这个类的事件处理函数想要这个事件;后者则告诉 Qt,这个类的事件
+处理函数不想要这个事件。无论是 accept() 还是 ignore(),该类不想要的事件都会被继续发送
+给其父组件。在事件处理函数中,可以使用 isAccepted() 来查询这个事件是不是已经被接收了。
+
+不想让它继续转发,就返回 true,否则返回 false
+
+
+

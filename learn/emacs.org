@@ -1,0 +1,14 @@
+** emacs
+emacs下使用clang补全C++
+https://blog.csdn.net/winterttr/article/details/7273345
+
+
+
+老外的开发环境
+http://tuhdo.github.io/c-ide.html#orgheadline2
+
+http://ergoemacs.org/emacs/emacs_package_system.html
+
+http://book.emacs-china.org/#orgheadline98
+** configure
+(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-iso10646-1")

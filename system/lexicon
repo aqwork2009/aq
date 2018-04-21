@@ -1,0 +1,3 @@
+#!/bin/bash
+word=$1
+firefox http://www.iciba.com/$word
