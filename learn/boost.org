@@ -1,0 +1,5 @@
+** linux compile
+./b2 --prefix=/home/work/source/boost_67_ins
+./b2 install
+
+

@@ -7,3 +7,8 @@ git push -u origin master
 
 git remote add origin https://github.com/aqwork2009/aq.git
 git push -u origin master
+
+
+
+git clone git@192.168.45.4:/home/gitrepo/runoob.git
+
