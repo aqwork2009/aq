@@ -154,7 +154,6 @@ yum工具:
        CentOS 6.4 中可以通过系统->首选项->键盘快捷键来设置快捷键，如图所示。例如可将运行终端的快捷键设为Ctrl+Alt+T。
 
 
-
 **  mount linux windows
 (1)源码（Stable Source Release 2015.3.14）下载：
 
@@ -182,7 +181,6 @@ make install   #非root 用户可使用 sudo make install 安装
 
 或者 echo "/dev/sda1 /mnt/windows ntfs-3g defaults 0 0 " >> /etc/fstab (注意使用 '>> ' 追加重定向，使用 '>' 会将/etc/fstab文件覆盖，当然，修改/etc/fstab 文件需要root 权限)
 
-
 ** 解压缩
 tar zxvf ***..tar.gz
 
@@ -191,7 +189,6 @@ tar zxvf ***..tar.gz
 rar a etc.rar /etc
 rar x etc.rar 
 unrar -e etc.tar
-
 
 ** wine
 Wine在CentOS 7-64位下安装全过程
@@ -333,6 +330,7 @@ ZY5H0-D3Y8K-M89EZ-AYPEG-MYUA8
 捕获自定义区域 ：$ gnome-screenshot -a
 捕获当前终端Terminal ： $ gnome-screenshot -w
 捕获整个屏幕 ： $ gnome-screenshot
+
 ** g++ update
  CentOS 6.6 升级GCC G++ (当前最新版本为v6.1.0) (完整)
 

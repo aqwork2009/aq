@@ -1,0 +1,52 @@
+#include <iostream>
+#include <hash_map>
+using namespace std;
+class I1
+{
+public:
+    virtual void vf1()
+    {
+        cout << "I'm I1:vf1()" << endl;
+    }
+};
+class I2
+{
+public:
+    virtual void vf2()
+    {
+        cout << "I'm I2:vf2()" << endl;
+    }
+};
+
+class C : public I1, public I2
+{
+private:
+    int m_cache;
+    int bbbb;
+};
+
+I1* CreateC()
+{
+    return new C();
+}
+
+int main()
+{
+
+    C* cccc = new C();
+    I1* pI1 = cccc;
+    pI1->vf1();
+
+    I2* pI2_1 = (I2*)cccc;
+    I2* pI2 = dynamic_cast<I2*>(cccc);
+    pI2->vf2();
+
+    cout << "pI1指向的地址为:"<<std::hex << pI1 << endl;
+
+    cout << "pI2指向的地址为:"<<std::hex << pI2 << endl;
+
+    delete pI1;
+
+    return 0;
+
+}

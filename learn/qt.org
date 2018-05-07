@@ -80,3 +80,27 @@ Qt 的事件对象有两个函数:accept() 和 ignore()。正如它们的名字�
 
 ** qt static compiler
 https://blog.csdn.net/yuexiaxiaoxi27172319/article/details/51987004
+
+** include path
+*** path
+INCLUDEPATH +=$$PWD/../../../public/common/three_lib/opencv/include \
+              $$PWD/../../../public/common/inc
+LIBS += -L$$PWD/../../../public/common/three_lib/opencv/lib \
+ -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_highgui
+
+#LIBS = -ldl
+LIBS += $$PWD/../../../public/common/lib64/lib_sy_base.a
+LIBS += $$PWD/../../../public/common/lib_boost/libboost_system.a \
+        $$PWD/../../../public/common/lib_boost/libboost_filesystem.a \
+        $$PWD/../../../public/common/lib_boost/libboost_thread.a
+
+QMAKE_RPATHDIR+=  $$PWD/../../../public/common/lib_boost \
+                  $$PWD/../../../public/common/three_lib/opencv/lib
+                  $PWD/../../../public/common/dll*** TEMPLATE：定义项目的类型（应用程序app、库 等）
+
+*** CONFIG: 指定编译器的不同选项。
+*** HEADERS: 列出项目的头文件。
+*** SOURCES: 列出项目的源文件(.cpp）
+*** QT: 声明所需的Qt扩展模块及类，。默认包含核心模块及GUI模块。如果你希望移除他们其中之一，可以使用-=语句。
+*** INCLUDEPATH: 指定用于搜索头文件的文件夹。
+*** LIBS：包含链接时的库文件列表。使用-L指定文件夹路径，-l指定库的名称。

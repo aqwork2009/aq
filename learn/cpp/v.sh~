@@ -1,0 +1,3 @@
+#!/bin/bash
+g++  -fno-rtti -o rf rttf.cpp
+./rf

@@ -1,0 +1,53 @@
+匹配：
+测量
+https://blog.csdn.net/chenmohousuiyue/article/details/56300915
+approxPolyDP
+
+干扰-图像预处理
+去噪声：
+均值滤波抑制电气元件或者环境因素引起的噪声
+Sobel算子 与 Scharr算子
+https://blog.csdn.net/liuheng0111/article/details/52522918
+平滑
+滤波器：均值，几何
+统计：中值滤波
+
+增强：
+ 锐化：计算边缘、增强噪声
+ 对比度：直方图
+
+Canny
+findContours
+https://blog.csdn.net/dcrmg/article/details/51987348
+
+
+
+标定：https://blog.csdn.net/u013498583/article/details/71404323
+边缘：sobel, canny  区别步骤
+
+
+
+点检测
+拉普拉斯模板
+双目，三角测距离
+颜色：RGB, inrange
+
+
+2.find shape model
+金字塔：层数高，
+
+识别模式：
+
+1.LogisticRegression
+优点：
+  实现简单，广泛的应用于工业问题上；
+  分类时计算量非常小，速度很快，存储资源低；
+  便利的观测样本概率分数；
+缺点：
+　当特征空间很大时，逻辑回归的性能不是很好；
+　容易欠拟合，一般准确度不太高
+  不能很好地处理大量多类特征或变量；
+　只能处理两分类问题（在此基础上衍生出来的softmax可以用于多分类），且必须线性可分；
+
+
+ 

@@ -9,9 +9,9 @@ Mysql/MangoDB等数据库开发；熟悉Redis，Nginx
 
 
 分布式系统架构:
-SOA、微服务等
+SOA、微服务等g
 
-qu kuai lian
+
 1.PoW，PoS，DPoS，PBFT，Paxos，Raft 等；
 2. Bitcoin，Ethereum，Hyperledger 
 3、熟悉数据结构和算法，对密码学，安全协议和加密算法有研究；
@@ -25,7 +25,23 @@ qu kuai lian
 5、熟悉网络协议，精通网络编程、多线程编程技术，具备高并发网络服务开发经验。
 
 熟练使用逆向工具及框架，如：Apktool、dex2jar、IDA、JEB、Frida、Xposed等；
+image tech
+OSG, 
 
+1、负责软件开发和维护，包括软件设计、实现、测试、集成/发布和错误修复。
+2、参与需求分析，并支持产品所有者和软件架构师对解决方案和架构进行分析。
+3、包括任务分解、工作量估算和计划、实施、测试、演示和DOD。
+4、确保软件代码的质量、可测试性、可维护性和功能可用性。
+
+1、计算机、信息技术或相关领域本科或硕士学历
+2、精通C++编程语言，熟悉Linux平台。熟悉NoDE.js，Python，有Linux /UNIX多线程编程经验，网络编程包括异步IO（EPOLL等）优先。
+3、熟悉面向对象分析和设计，精通OOA/D，精通UML和设计模式；
+4、熟悉业务建模（SAA首选）
+5、熟悉SQL或NoSQL数据库；
+6、熟悉GIT/Mag file；
+7、了解HTTP/HTTPS；了解在REST API /JSON/直径/RADIUS /EAP-AKA知识；了解KVM虚拟化和云环境原理及应用；
+8、良好的团队合作精神和强烈的团队精神；
+9、良好的英语写作能力，能用英语进行非复杂技术的讨论。 
 
 stl
 https://blog.csdn.net/longhuahaha/article/details/8365041
@@ -539,3 +555,47 @@ map中的key值不允许重复，multimap中的key允许重复；
 
 插入和删除操作比较慢。
 
+
+** linked
+dynamic
+LIBS += library.dll
+
+简单的写法是上面的样子，建议使用完整的写法：
+
+LIBS += -LD:/my_program_design/dll_test/test_library_by_header/ -llibrary
+
+
+static 在pro文件增加：
+LIBS += -LD:/my_program_design/dll_test/test_static_library/ -llibstatic_library
+
+
+
+** compile item
+https://blog.csdn.net/nickwong_/article/details/38762611
+
+-fPIC 作用于编译阶段，告诉编译器产生与位置无关代码(Position-Independent Code)，
+  则产生的代码中，没有绝对地址，全部使用相对地址，故而代码可以被加载器加载到内存的任意
+  位置，都可以正确的执行。这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
+
+
+    -I /home/hello/include，表示将/home/hello/include目录作为第一个寻找头文件的目录，寻找的顺序是：/home/hello/include–>/usr/include–>/usr/local/include
+        也就是指定优先查找的目录，找不到的话查找默认目录
+
+    -L /home/hello/lib，表示将/home/hello/lib目录作为第一个寻找库文件的目录， 寻找的顺序是：/home/hello/lib–>/lib–>/usr/lib–>/usr/local/lib
+        同上，也是指定优先查找的目录
+
+    -l word , 表示**寻找动态链接库文件**libword.so（也就是文件名去掉前缀和后缀所代表的库文件)
+        如果 加上编译选项-static，表示寻找静态链接库文件，也就是libword.a
+
+*** -fPIC
+-fPIC 作用于编译阶段，告诉编译器产生与位置无关代码(Position-Independent Code)，
+  则产生的代码中，没有绝对地址，全部使用相对地址，故而代码可以被加载器加载到内存的任意
+  位置，都可以正确的执行。这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
+
+gcc -shared -fPIC -o 1.so 1.c
+这里有一个-fPIC参数
+PIC就是position independent code
+PIC使.so文件的代码段变为真正意义上的共享
+如果不加-fPIC,则加载.so文件的代码段时,代码段引用的数据对象需要重定位, 重定位会修改代码段的内容,这就造成每个使用这个.so文件代码段的进程在内核里都会生成这个.so文件代码段的copy.每个copy都不一样,取决于 这个.so文件代码段和数据段内存映射的位置.
+** debug
+查看依赖搜索：ldd xxxx
