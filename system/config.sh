@@ -1,2 +1,2 @@
 #!/bin/bash
-cp work_init work_init_edit lexicon /usr/bin
+cp work_init work_init_edit lxc /usr/bin

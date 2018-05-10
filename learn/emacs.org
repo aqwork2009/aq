@@ -10,5 +10,27 @@ http://tuhdo.github.io/c-ide.html#orgheadline2
 http://ergoemacs.org/emacs/emacs_package_system.html
 
 http://book.emacs-china.org/#orgheadline98
+
 ** configure
 (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-iso10646-1")
+** org
+https://www.cnblogs.com/qlwy/archive/2012/06/15/2551034.html
+
+https://blog.csdn.net/fanfan4569/article/details/79140470
+
+（9） 常用快捷键
+表格快捷键
+快捷键 	命令说明
+C-c 竖线 	创建或转换成表格
+C-c C-c 	调整表格，不移动光标
+TAB 	移动到下一区域，必要时新建一行
+S-TAB 	移动到上一区域
+RET 	移动到下一行，必要时新建一行
+M-RET 	(Alt + 回车)插入同级列表项
+M-S-RET 	(Alt + Shift + 回车)插入有checkbox的同级列表项
+M-left/right 	(left: <- ; right: ->)改变列表顶层级关系
+M-up/down 	上下移动列表项
+C-c C-c 	改变checkbox状态
+C-c - 	添加水平分割线
+C-c RET 	添加水平分割线并跳到下一行
+C-c ^ 	根据当前列排序，可以选择排序方式
