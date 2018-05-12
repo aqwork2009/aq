@@ -104,3 +104,63 @@ QMAKE_RPATHDIR+=  $$PWD/../../../public/common/lib_boost \
 *** QT: 声明所需的Qt扩展模块及类，。默认包含核心模块及GUI模块。如果你希望移除他们其中之一，可以使用-=语句。
 *** INCLUDEPATH: 指定用于搜索头文件的文件夹。
 *** LIBS：包含链接时的库文件列表。使用-L指定文件夹路径，-l指定库的名称。
+** ui
+treewedgit
+https://blog.csdn.net/czyt1988/article/details/1917172
+
+QTableWidget行选中/删除/添加行
+https://www.cnblogs.com/felix-wang/p/6210184.html
+
+
+add delete modify
+https://www.cnblogs.com/li-peng/p/3652287.html
+*** 让QTreeWidget中的项目有复选框
+QTreeWidget *legendView = new QTreeWidget(legend);　//创建一个QTreeWidget对象
+    legend->setWidget(legendView);　//将该对象设为以前创建的停靠窗口legend的部件
+    legendView->setSortingEnabled(false);　//不自动排序
+    legendView->setDragEnabled(false);　//不可拖放
+    legendView->setAutoScroll(true);  　//可以卷动
+    legendView->setColumnCount(1);　//列数
+    legendView->header()->setHidden(1);　//隐藏最顶上的表头
+    legendView->setRootIsDecorated(true);　//让根项目前面也有树状虚线
+
+    QTreeWidgetItem * item1 = new QTreeWidgetItem();
+    item1->setText(0,"item1");
+    item1->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+    item1->setCheckState (0, Qt::Checked);   //复选框
+    QIcon myIcon(QgsApplication::themePath()+"/mActionFolder.png");
+    item1->setIcon(0, myIcon);　                       //还可以为item自定义图标
+
+    legendView->addTopLevelItem(item1);　//把item添加到QTreeWidget中
+
+    QTreeWidgetItem * item2 = new QTreeWidgetItem(item1);　
+    item2->setText(0,"item2");
+
+ 
+
+  方法2、给QTreeWidgetItem 加上checkBox
+
+   QTreeWidgetItem *item=(this->treeWidget)->topLevelItem(0);
+
+   item->setFlags(item->flags()|Qt::ItemIsUserCheckable);
+
+   item->setCheckState(0, Qt::Checked);
+
+1，调整列宽：
+    header()->setResizeMode(QHeaderView::Interactive);
+    setColumnWidth( 0 , 200 ); //第一列宽设为200
+2，单击tree widget 的 header 自动重新排列各item，设置如下：
+    setSortingEnabled(true);
+3，拖曳：
+    setDragEnabled(true);   //允许拖曳某item
+    setAcceptDrops(true);   //允许item接受拖曳过来的item
+    setDragDropMode(QAbstractItemView::InternalMove);   //移动模式，某item拖走后原来的位置不再保留该item
+4，激活编辑状态的动作：
+    setEditTriggers( QAbstractItemView::SelectedClicked ); // QAbstractItemView::SelectedClicked
+     //表示当该item呈被选择状态时再被单击就可编辑该项，类似windows资源管理器中重命名文件
+
+*** QTableWidget
+https://blog.csdn.net/xcy2011sky/article/details/6991073
+
+
+

@@ -12,3 +12,4 @@ git push -u origin master
 
 git clone git@192.168.45.4:/home/gitrepo/runoob.git
 
+git checkout root@127.0.0.1:/home/dynamic_git/demo
