@@ -1,5 +1,7 @@
 ** Qt Creator常用快捷键
 原创 2013年09月12日 22:56:06
+Ctrl+A  
+Ctrl+i
 
 【Ctrl + I】 选中的文字自动缩进
 【Ctrl + /】 注释行和取消注释行
@@ -161,6 +163,126 @@ QTreeWidget *legendView = new QTreeWidget(legend);　//创建一个QTreeWidget�
 
 *** QTableWidget
 https://blog.csdn.net/xcy2011sky/article/details/6991073
+
+
+
+*** qdatetimeedit
+QDateTimeEdit 用法总结
+2017年07月30日 21:27:13
+阅读数：1925
+
+参考：Qt之QDateTimeEdit
+一般用法
+设置时间
+
+QDateTimeEdit *dateTimeEdit = new QDateTimeEdit(this);
+QDateTimeEdit *dateTimeEdit2 = new QDateTimeEdit(QDateTime::currentDateTime(), this);
+QDateTimeEdit *dateEdit = new QDateTimeEdit(QDate::currentDate(), this);
+QDateTimeEdit *timeEdit = new QDateTimeEdit(QTime::currentTime(), this);
+
+// 设置日期时间格式
+dateTimeEdit->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
+dateTimeEdit2->setDisplayFormat("yyyy/MM/dd HH-mm-ss");
+dateEdit->setDisplayFormat("yyyy.M.d");
+timeEdit->setDisplayFormat("H:mm");
+
+设置范围
+
+    dateEdit->setMinimumDate(QDate::currentDate().addDays(-365));  // -365天
+    dateEdit->setMaximumDate(QDate::currentDate().addDays(365));  // +365天
+
+    1
+    2
+
+获取时间
+
+    QDate date = dateEdit->date();  // 日期
+    QDateTime dateTime = dateEdit->dateTime();  // 日期时间
+    QDate maxDate = dateEdit->maximumDate();  // 最大日期
+    QDateTime maxDateTime = dateEdit->maximumDateTime();  // 最大日期时间
+    QTime maxTime = dateEdit->maximumTime();  // 最大时间
+    QDate minDate = dateEdit->minimumDate();  // 最小日期
+    QDateTime minDateTime = dateEdit->minimumDateTime();  // 最小日期时间
+    QTime minTime = dateEdit->minimumTime();  // 最小时间
+
+// 用Section 获取各部分对应的值
+QString strYear = dateEdit->sectionText(QDateTimeEdit::YearSection);
+QString strMonth = dateEdit->sectionText(QDateTimeEdit::MonthSection);
+QString strDay = dateEdit->sectionText(QDateTimeEdit::DaySection);
+QString strHour = dateEdit->sectionText(QDateTimeEdit::HourSection);
+QString strMinute = dateEdit->sectionText(QDateTimeEdit::MinuteSection);
+QString strSecond = dateEdit->sectionText(QDateTimeEdit::SecondSection);
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    11
+    12
+    13
+    14
+    15
+    16
+    17
+
+弹出日历
+
+// 注意：日历是对应的是QDate，而非QTime。所以QDateEdit、QDateTimeEdit可以使用，而QTimeEdit并不能使用。
+dateEdit->setCalendarPopup(true);  // 日历弹出
+
+    1
+    2
+
+信号
+
+QDateTimeEdit *dateTimeEdit = new QDateTimeEdit(QDateTime::currentDateTime(), this);
+
+// 连接信号槽
+connect(dateTimeEdit, SIGNAL(dateChanged(QDate)), this, SLOT(onDateChanged(QDate)));
+connect(dateTimeEdit, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(onDateTimeChanged(QDateTime)));
+connect(dateTimeEdit, SIGNAL(timeChanged(QTime)), this, SLOT(onTimeChanged(QTime)));
+
+    1
+    2
+    3
+    4
+    5
+    6
+
+槽函数
+
+// 日期发生改变时执行
+void onDateChanged(const QDate &date) {
+    qDebug() << "QDate : " << date;
+}
+
+// 无论日期还是时间发生改变，都会执行
+void onDateTimeChanged(const QDateTime &dateTime) {
+    qDebug() << "QDateTime : " << dateTime;
+}
+
+// 时间发生改变时执行
+void onTimeChanged(const QTime &time) {
+    qDebug() << "QTime : " << time;
+}
+
+** 读写配置
+二 Qt写ini文件
+#include <QSettings>  
+#include <QDebug>     
+//QSettings构造函数的第一个参数是ini文件的路径,第二个参数表示针对ini文件,第三个参数可以缺省  
+QSettings *configIniWrite = new QSettings("hahaya.ini", QSettings::IniFormat);  
+configIniWrite->setValue("/ip/first", "192.168.0.1");  
+configIniWrite->setValue("port/open", "2222");  
+QSettings *configIniRead = new QSettings("hahaya.ini", QSettings::IniFormat);  
+//将读取到的ini文件保存在QString中，先取值，然后通过toString()函数转换成QString类型  
+QString ipResult = configIniRead->value("/ip/second").toString();  
 
 
 

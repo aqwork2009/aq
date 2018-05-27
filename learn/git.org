@@ -13,3 +13,15 @@ git push -u origin master
 git clone git@192.168.45.4:/home/gitrepo/runoob.git
 
 git checkout root@127.0.0.1:/home/dynamic_git/demo
+
+
+----- untracked unmodified modified staged
+git status
+git status -s
+git checkout
+gitignore ??  doc/**/*.pdf
+git diff --staged 
+git rm log/\*.log
+
+git log 
+git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96  

@@ -1,6 +1,0 @@
-** linux compile
-./b2 cxxflags=-fPIC -a  --prefix=/home/work/source/boost_67_ins
-./b2 install
-
-https://blog.csdn.net/this_capslock/article/details/47170313
-
