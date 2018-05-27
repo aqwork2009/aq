@@ -1,11 +1,15 @@
 
 ** linux compile
+
 ./b2 cxxflags=-fPIC cflags=-fPIC -a  --prefix=/home/work/source/boost_67_ins
 ./b2 install
 
 https://blog.csdn.net/this_capslock/article/details/47170313
 
+test
+
 ** 目录操作
+
 //定义一个可以递归的目录迭代器,用于遍历
 boost::filesystem::recursive_directory_iterator itEnd;
 for(boost::filesystem::recursive_directory_iterator itor( curPath.c_str() ); itor != itEnd ;++itor)

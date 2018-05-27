@@ -17,6 +17,7 @@ source ~/.bashrc
 拷贝不提示：\cp -rf zongguofeng linuxzgf
 linux to windows 共享文件：mount -t cifs -o username="111"  //10.100.81.110/work_shared /home/mpan
 
+
 用命令:
 
 文件和目录:
