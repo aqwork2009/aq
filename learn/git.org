@@ -25,3 +25,10 @@ git rm log/\*.log
 
 git log 
 git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96  
+
+
+** 报错
+[receive]
+ denyCurrentBranch = ignore
+
+在客户端再执行git push origin master就可以成功了。

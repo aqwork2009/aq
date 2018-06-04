@@ -15,7 +15,7 @@ chainloader +1
 source ~/.bashrc
 /usr/bin/gnome-terminal
 拷贝不提示：\cp -rf zongguofeng linuxzgf
-linux to windows 共享文件：mount -t cifs -o username="111"  //10.100.81.110/work_shared /home/mpan
+linux to windows 共享文件：mount -t cifs -o username="111"  //10.101.1.19/work_shared /home/mpan
 
 
 用命令:
@@ -45,7 +45,7 @@ linux to windows 共享文件：mount -t cifs -o username="111"  //10.100.81.110
 # diff file1 file2                   找出两个文件的不同处
 # sdiff file1 file2                 以对比的方式显示两个文件的不同
 
-查找:
+v查找:
 
 # find / -name file1                                                 从 '/' 开始进入根文件系统查找文件和目录
 
@@ -233,6 +233,20 @@ rpm -qa yum
 
 
 rpm -ivh
+
+** rpm
+rpm -qa|grep xx
+
+查看SSH服务是否正在运行。
+输入命令：/etc/init.d/sshd status
+停止SSH服务命令（service sshd stop）；
+重启SSH服务命令（service sshd restart）
+netstat -antp | grep sshd 查看是否启动22端口]
+
+检查SSHD是否在本运行级别下设置为开机启动
+输入命令：chkconfig --list sshd
+
+设置SSH服务为开机启动。输入命令：chkconfig sshd on 
 
 
 ** wine
@@ -536,6 +550,7 @@ umbrello
 ** 系统快键
 lock screen: super + L
 echo $DESKTOP_SESSION
+
 ** firefox
 Firefox 键盘快捷键
 导航类
@@ -667,3 +682,15 @@ https://blog.csdn.net/u011846257/article/details/54707864
 
 
 大功告成。  试试service iptables restart、stop
+** rdesktop
+wget
+http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+rpm -Uvh nux-dextop-release*rpm 
+yum install rdesktop -y
+rdesktop -f -a 16 192.168.1.100
+** ssh
+** 远程桌面
+
+https://blog.csdn.net/heirenheiren/article/details/7996603
+https://github.com/neutrinolabs/xrdp/releases/download/v0.9.6/xrdp-0.9.6.tar.gz
+

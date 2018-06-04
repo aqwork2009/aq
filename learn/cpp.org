@@ -586,6 +586,13 @@ https://blog.csdn.net/nickwong_/article/details/38762611
 
     -l word , 表示**寻找动态链接库文件**libword.so（也就是文件名去掉前缀和后缀所代表的库文件)
         如果 加上编译选项-static，表示寻找静态链接库文件，也就是libword.a
+今天在看一个makefile时看到了gcc -W -Wall....这句，不明其理，专门查看了gcc的使用手册。
+
+-w的意思是关闭编译时的警告，也就是编译后不显示任何warning，因为有时在编译之后编译器会显示一些例如数据转换之类的警告，这些警告是我们平时可以忽略的。
+
+-Wall选项意思是编译后显示所有警告。
+
+-W选项类似-Wall，会显示警告，但是只显示编译器认为会出现错误的警告。
 
 *** -fPIC
 -fPIC 作用于编译阶段，告诉编译器产生与位置无关代码(Position-Independent Code)，

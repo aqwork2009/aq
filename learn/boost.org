@@ -3,6 +3,7 @@
 
 ./b2 cxxflags=-fPIC cflags=-fPIC -a  --prefix=/home/work/source/boost_67_ins
 ./b2 install
+./b2 --with-thread --toolset=msvc-14.1 --build-type=complete
 
 https://blog.csdn.net/this_capslock/article/details/47170313
 
@@ -90,3 +91,5 @@ if( !boost::filesystem::exists( strFilePath ) )
 {
     boost::filesystem::create_directories(strFilePath)
 }
+** boost 日志
+https://www.cnblogs.com/livewithnorest/archive/2013/09/12/3316838.html
