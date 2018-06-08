@@ -1,0 +1,12 @@
+# created by huangxinquan
+#vs  
+*.log
+*.pch
+*.pdb
+*.obj
+.vs
+#g++
+*.o
+#emacs temp file
+*.#
+*.~
