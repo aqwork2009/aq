@@ -83,6 +83,11 @@ Qt 的事件对象有两个函数:accept() 和 ignore()。正如它们的名字�
 ** qt static compiler
 https://blog.csdn.net/yuexiaxiaoxi27172319/article/details/51987004
 
+multicompiler
+tool->option ->build&run ->kit -> environment  MAKEFLAGS=-j4 
+
+PRECOMPILED_HEADER = stable.h
+
 ** include path
 *** path
 INCLUDEPATH +=$$PWD/../../../public/common/three_lib/opencv/include \

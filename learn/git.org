@@ -28,6 +28,28 @@ git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96
 
 git config --list
 
+
+** gitignore
+git config --global core.excludesfile ~/.gitignore
+git rm -r --cached .
+*.[oa]
+*.obj
+*[~#]
+*.log
+*.so
+*.lib
+*.dll
+*.vs
+*.ipdb
+*.txt
+*.iobj
+*.pdb
+*.exp
+/.vs
+/Debug
+/x64
+/Release
+
 ** 报错
 [receive]
  denyCurrentBranch = ignore

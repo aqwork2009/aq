@@ -1,12 +1,17 @@
-# created by huangxinquan
-#vs  
-*.log
-*.pch
-*.pdb
+*.[oa]
 *.obj
-.vs
-#g++
-*.o
-#emacs temp file
-*.#
-*.~
+*[~#]
+*.log
+*.so
+*.lib
+*.dll
+*.vs
+*.ipdb
+*.txt
+*.iobj
+*.pdb
+*.exp
+/.vs
+/Debug
+/x64
+/Release
