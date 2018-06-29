@@ -10,6 +10,7 @@ chainloader +1
 3） grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ** 常用命令
+http://man.linuxde.net
 tar -jcvf umt.tar.bz2 umt
 上传文件 scp xxx.tar.bz2 root@47.106.xxx.xxx:/home/xhg_svc
 
