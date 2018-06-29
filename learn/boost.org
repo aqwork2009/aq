@@ -9,6 +9,10 @@ https://blog.csdn.net/this_capslock/article/details/47170313
 
 test
 
+** windows cygwin
+./bootstrap.sh
+./b2 cxxflags='-std=gnu++11 -D__USE_W32_SOCKETS -D"__MSABI_LONG(x)=(x)" -fpermissive'
+
 ** 目录操作
 
 //定义一个可以递归的目录迭代器,用于遍历
