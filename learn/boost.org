@@ -12,6 +12,8 @@ test
 ** windows cygwin
 ./bootstrap.sh
 ./b2 cxxflags='-std=gnu++11 -D__USE_W32_SOCKETS -D"__MSABI_LONG(x)=(x)" -fpermissive'
+** windows qt mingw
+https://www.cnblogs.com/zhangnianyong/p/6546712.html
 
 ** 目录操作
 
