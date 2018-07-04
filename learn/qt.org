@@ -1,3 +1,11 @@
+** QT程序打包
+https://blog.csdn.net/z3512498/article/details/64922180
+qt程序打包4个步骤 
+1. 拷贝本程序依赖
+2. 拷贝libqxcb.so依赖
+3. 拷贝Qt 下的platforms
+4. 目标机器运行时export 库的目录
+
 ** Qt Creator常用快捷键
 原创 2013年09月12日 22:56:06
 Ctrl+A  
