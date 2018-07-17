@@ -28,6 +28,8 @@ git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96
 
 git config --list
 
+** git diff
+git status|grep -E "cpp$|h$"|awk '{print $2}'|xargs -i git diff {}
 
 ** gitignore
 git config --global core.excludesfile ~/.gitignore
