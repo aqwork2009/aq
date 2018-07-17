@@ -1,1 +1,0 @@
-ifconfig | sed -n '/[0-9]\{2\}:/{s/://g;p;q}'|awk '{print $5}'
