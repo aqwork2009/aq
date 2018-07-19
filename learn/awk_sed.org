@@ -1,2 +1,10 @@
 ** awk
 ifconfig | sed -n '/[0-9]\{2\}:/{s/://g;p;q}'|awk '{print $5}'
+grep -e "deviceid=[0-9]" /home/xhg/xhg_ai_update/config/version.ini|sed -n 's/[a-z]*=\([0-9]\{3,\}\)/\1/p'
+#!/bin/sh
+
+view_id=`grep 'ID:\ \{3,\}[0-9]\{3,\}' /opt/teamviewer/logfiles/TeamViewer13_Logfile.log|tail -n 1|awk '{print $2}'`
+mac=`ifconfig | sed -n '/[0-9]\{2\}:/{s/://g;p;q}'|awk '{print $5}'`
+device_id=`grep -e "deviceid=[0-9]" /home/xhg/xhg_ai_update/config/version.ini|sed -n 's/deviceid=//p'`
+echo "mac:$mac|view:$view_id|device:$device_id"
+
