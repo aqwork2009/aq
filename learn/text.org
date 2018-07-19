@@ -1,1 +1,0 @@
-find .|grep  -E '*\#$|*~' |xargs -i git rm {}

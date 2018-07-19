@@ -1,0 +1,6 @@
+*.so*
+*.[ao]
+*.qmake.stash
+*[~#]
+*.txt
+*.log

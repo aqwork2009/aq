@@ -19,7 +19,7 @@ source ~/.bashrc
 拷贝不提示：\cp -rf zongguofeng linuxzgf
 linux to windows 共享文件：
 mount -t cifs -o username="111"  //10.101.1.19/work_shared /home/mpan
-
+mount 
 
 用命令:
 
@@ -726,3 +726,12 @@ rdesktop -f -a 16 192.168.1.100
 ** 流量监控
 
 yum install nethogs
+** nopasswd use expect
+#!/usr/bin/expect
+set timeout 20
+set ip "147.16.15.3"
+set username "root"
+set password "######"
+spawn scp test.sh $username@$ip:/home
+expect "*password*" {send "$password\n"}
+interact
