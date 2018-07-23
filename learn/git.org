@@ -1,12 +1,18 @@
+
+** repository
+工作区(workspace): 我们新创建的文件，修改的文件如果没有提交都是保存到工作区的
+
+暂存区（index）: git add的时候我们会将代码提交到暂存区.只能通过git GUI或git shell 窗口显示，提交代码、解决冲突的中转站。(从上面这张图来说，我们的暂存区也会受到影响)
+
+本地仓库（local repository）:git commit的时候会将暂存区的代码提交到本地仓库。只能在git shell 窗口显示，连接本地代码跟远程代码的枢纽，不能联网时本地代码可先提交至该处；
+
+远程仓库（remote repository）: git push会将本地仓库代码提交到远程仓库
+
+** base
 echo "# aq" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
-git remote add origin https://github.com/aqwork2009/aq.git
-git push -u origin master
-
-git remote add origin https://github.com/aqwork2009/aq.git
-git push -u origin master
 
 
 
@@ -20,16 +26,44 @@ git status
 git status -s
 git checkout
 gitignore ??  doc/**/*.pdf
-git diff --staged 
+
 git rm log/\*.log
 
 git log 
 git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96  
 
 git config --list
+** git remote
+git fetch origin master
+//其中origin是对远程服务器的称呼，默认为master。git clone的时候可以自己指定.
+//如git clone -o booyah，那么你默认的远程分支名字将会是 booyah/master
+//(1)目的:从远程的origin仓库的master主分支更新最新的版本到origin/master分支上
+git log -p master..origin/master
+//(2)目的:对比本地master和origin/master的区别，而且git fetch只会推送到本地仓库，不会到本地
+git merge origin/master
+//(3)目的:将本地的master和远程fetch下面的master合并
+
+//相当于git fetch 和 git merge，即更新远程仓库的代码到本地仓库，然后将内容合并到当前分支。
+git pull origin master
+
+
+*** update local
+//abendent local modified
+git checkout head .
+
+
+
+git remote add origin https://github.com/aqwork2009/aq.git
+git push -u origin master
+
+git remote add origin https://github.com/aqwork2009/aq.git
+git push -u origin master
+
+
 
 ** git diff
 git status|grep -E "cpp$|h$"|awk '{print $2}'|xargs -i git diff {}
+git diff --staged 
 
 ** gitignore
 git config --global core.excludesfile ~/.gitignore
