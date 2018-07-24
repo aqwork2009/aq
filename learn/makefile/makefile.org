@@ -1,0 +1,193 @@
+** reading tag https://blog.csdn.net/alpha_love/article/details/62953847
+
+
+** “.PHONY”表示，clean是个伪目标文件。
+    clean:
+
+               -rmedit $(objects)
+
+前面说过，.PHONY意思表示clean是一个“伪目标”。而在rm命令前面加了一个小减号的意思就是，也许某些文件出现问题，但不要管，继续做后面的事
+** Makefile里主要包含了五个东西：显式规则、隐晦规则、变量定义、文件指示和注释。
+** 引用其它的Makefile
+下面的语句：
+
+   include foo.make *.mk$(bar)
+
+等价于：
+
+   include foo.make a.mkb.mk c.mk e.mk f.mk
+1.如果make执行时，有“-I”或“--include-dir”参数，那么make就会在这个参数所指定的目录下去寻找。
+
+2.如果目录/include（一般是：/usr/local/bin或/usr/include）存在的话，make也会去找。
+你可以在include前加一个减号“-”。如：-include<filename> 其表示，无论include过程中出现什么错误，都不要报错继续执行。
+
+**  2.5 make的工作方式
+
+GNU的make工作时的执行步骤入下：（想来其它的make也是类似）
+
+1.    读入所有的Makefile。
+
+2.    读入被include的其它Makefile。
+
+3.    初始化文件中的变量。
+
+4.    推导隐晦规则，并分析所有规则。
+
+5.    为所有的目标文件创建依赖关系链。
+
+6.    根据依赖关系，决定哪些目标要重新生成。
+
+7.    执行生成命令。
+
+** 3.2 规则的语法
+
+     targets :prerequisites
+
+       command
+
+       ...
+
+或是这样：
+
+     targets : prerequisites; command
+
+           command
+
+           ...
+
+targets是文件名，以空格分开，可以使用通配符。一般来说，我们的目标基本上是一个文件，但也有可能是多个文件。
+
+command是命令行，如果其不与“target:prerequisites”在一行，那么，必须以[Tab键]开头，如果和prerequisites在一行，那么可以用分号做为分隔。（见上）
+
+** 3.3 在规则中使用通配符 “*”，“?”和“[..
+“$?”是一个自动化变量，让objects的值是所有[.o]的文件名的集合，那么，你可以这样：objects := $(wildcard*.o)
+$@”这个变量表示着目前规则中所有的目标的集合。
+“$@”表示目标的集合，就像一个数组，“$@”依次取出目标，并执于命令。
+“$<”表示所有的依赖目标集（也就是“foo.c bar.c”）
+
+当我们用“@”字符在命令行前，那么，这个命令将不被make显示出来，最具代表性的例子是，我们用这个功能来像屏幕显示一些信息
+带入make参数“-n”或“--just-print”，那么其只是显示命令，但不会执行命令，
+*** - 我们可以在Makefile的命令行前加一个减号“-”（在Tab键之后），标记为不管命令出不出错都认为是成功的。如：
+
+  clean:
+
+           -rm-f *.o
+
+还有一个全局的办法是，给make加上“-i”或是“--ignore-errors”参数，那么，Makefile中所有命令都会忽略错误。
+** 3.4 文件搜寻
+   VPATH = src:../headers
+上面的的定义指定两个目录，“src”和“../headers”，make会按照这个顺序进行搜索。目录由“冒号”分隔。（当然，当前目录永远是最高优先搜索的地方）
+
+
+另一个设置文件搜索路径的方法是使用make的“vpath”关键字
+  vpath %.h ../headers
+该语句表示，要求make在“../headers”目录下搜索所有以“.h”结尾的文件
+
+
+** 静态模式
+
+静态模式可以更加容易地定义多目标的规则，可以让我们的规则变得更加的有弹性和灵活。我们还是先来看一下语法：
+
+<targets...>: <target-pattern>:<prereq-patterns ...>
+
+　　　<commands>
+
+objects = foo.o bar.o
+
+    all: $(objects)
+
+    $(objects): %.o:%.c
+
+           $(CC)-c $(CFLAGS) $< -o $@
+
+ 上面的例子中，指明了我们的目标从$object中获取，“%.o”表明要所有以“.o”结尾的目标，也就是“foo.o bar.o”，也就是变量$object集合的模式，而依赖模式“%.c”则取模式“%.o”的“%”，也就是“foobar”，并为其加下“.c”的后缀，于是，我们的依赖目标就是“foo.cbar.c”。而命令中的“$<”和“$@”则是自动化变量，“$<”表示所有的依赖目标集（也就是“foo.c bar.c”），“$@”表示目标集（也褪恰癴oo.o bar.o”）。于是，上面的规则展开后等价于下面的规则：
+
+   foo.o : foo.c
+
+           $(CC)-c $(CFLAGS) foo.c -o foo.o
+
+   bar.o : bar.c
+
+           $(CC)-c $(CFLAGS) bar.c -o bar.o
+
+    files = foo.elcbar.o lose.o
+
+    $(filter%.o,$(files)): %.o: %.c
+
+           $(CC)-c $(CFLAGS) $< -o $@
+
+   $(filter %.elc,$(files)):%.elc: %.el
+
+           emacs-f batch-byte-compile $<
+
+$(filter%.o,$(files))表示调用Makefile的filter函数，过滤“$filter”集，只要其中模式为“%.o”的内容。
+
+** 3.8 自动生成依赖性
+大多数的C/C++编译器都支持一个“-M”的选项，即自动找寻源文件中包含的头文件，并生成一个依赖关系。例如，如果我们执行下面的命令：
+
+   cc -M main.c
+
+其输出是：
+
+   main.o : main.c defs.h
+
+如果你使用GNU的C/C++编译器，你得用“-MM”参数，不然，“-M”参数会把一些标准库的头文件也包含进来。
+
+** 4.2 命令执行
+如果你要让上一条命令的结果应用在下一条命令时，你应该使用分号分隔这两条命令。比如你的第一条命令是cd命令，你希望第二条命令得在cd之后的基础上运行，那么你就不能把这两条命令写在两行上，而应该把这两条命令写在一行上，用分号分隔。如：
+
+   示例一：
+
+       exec:
+
+               cd/home/hchen
+
+               pwd
+
+    示例二：
+
+       exec:
+
+               cd/home/hchen; pwd
+** 4.4 嵌套执行make
+subsystem:
+
+           cdsubdir && $(MAKE)
+
+其等价于：
+
+    subsystem:
+
+           $(MAKE)-C subdir
+
+
+如果你要传递变量到下级Makefile中，那么你可以使用这样的声明：
+
+export<variable ...>
+
+如果你不想让某些变量传递到下级Makefile中，那么你可以这样声明：
+
+unexport<variable ...>
+
+如：
+
+      示例一：
+
+        exportvariable = value
+  其等价于：
+
+       variable = value
+
+        exportvariable
+
+       其等价于：
+
+        exportvariable := value
+
+        其等价于：
+
+        variable:= value
+
+       exportvariable
+** 4.5 定义命令包
+
