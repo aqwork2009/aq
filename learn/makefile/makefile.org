@@ -64,6 +64,7 @@ command是命令行，如果其不与“target:prerequisites”在一行，那�
 $@”这个变量表示着目前规则中所有的目标的集合。
 “$@”表示目标的集合，就像一个数组，“$@”依次取出目标，并执于命令。
 “$<”表示所有的依赖目标集（也就是“foo.c bar.c”）
+“$^”就是“foo(4.5定义命令包)
 
 当我们用“@”字符在命令行前，那么，这个命令将不被make显示出来，最具代表性的例子是，我们用这个功能来像屏幕显示一些信息
 带入make参数“-n”或“--just-print”，那么其只是显示命令，但不会执行命令，
@@ -190,4 +191,17 @@ unexport<variable ...>
 
        exportvariable
 ** 4.5 定义命令包
+如果Makefile中出现一些相同命令序列，那么我们可以为这些相同的命令序列定义一个变量。定义这种命令序列的语法以“define”开始，以“endef”结束，如：
 
+   define run-yacc
+
+   yacc $(firstword $^)
+
+   mv y.tab.c $@
+
+   endef
+
+
+ foo.c : foo.y
+           $(run-yacc)
+命令包“run-yacc”中的“$^”就是“foo.y”，“$@”就是“foo.c”
