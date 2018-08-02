@@ -45,7 +45,11 @@ git merge origin/master
 
 //相当于git fetch 和 git merge，即更新远程仓库的代码到本地仓库，然后将内容合并到当前分支。
 git pull origin master
-
+log_common(lv_notice, "%s,%s", map_params_["ip"].c_str(), map_params_["port"].c_str());
+    }
+    else {
+    log_common(lv_notice, "�����������ɹ������˿�%s", map_params_["port"].c_str());
+    }
 
 *** update local
 //abendent local modified
@@ -61,7 +65,7 @@ git push -u origin master
 
 
 
-** git diff
+** git diffgi
 git status|grep -E "cpp$|h$"|awk '{print $2}'|xargs -i git diff {}
 git diff --staged 
 

@@ -299,3 +299,17 @@ QString ipResult = configIniRead->value("/ip/second").toString();
 
 
 
+** code error
+  解决方案：
+
+    1. 工具->选项->环境->语言: Chinese
+
+    2. 选项->文本编辑器->行为->文件编码->默认编码: System
+
+    设置上面后，重建项目就可以了。
+
+   3. 已有项目，将项目文件编码该为ASNI。就可以了。
+
+   改文件编码格式的工具，记事本另存选编码就可以。
+
+   或者批量修改: 用EditPlus（好用）
