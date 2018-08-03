@@ -1,0 +1,15 @@
+CC=g++
+SOURCES = $(wildcard *.cpp)
+OBJS := $(patsubst %.cpp,%.o, $(SOURCES))
+all: main
+#	@echo objs:$(OBJS)
+%.d: %.cpp
+	@set -e; rm -f $@; /
+	$(CC) -MM  $< > $@.$$$$; /
+	sed 's,/($*/)/.o[ :]*,/1.o $@ : ,g' < $@.$$$$ > $@; /
+	rm -f $@.$$$$
+sinclude $(SOURCES:.cpp=.d)
+main:$(OBJS)
+	$(CC) -o main $(OBJS)
+clean:
+	rm -f *.o test *.d
