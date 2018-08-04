@@ -1,3 +1,4 @@
+
 ** 修复双系统引导o
 1） /etc/grub.d/40_custom
 
@@ -19,6 +20,7 @@ source ~/.bashrc
 拷贝不提示：\cp -rf zongguofeng linuxzgf
 linux to windows 共享文件：
 mount -t cifs -o username="111"  //10.101.1.19/work_shared /home/mpan
+mount -t cifs -o username="shared",password="shared",vers=2.0  //10.101.1.117/shared /home/win117
 mount 
 
 用命令:
