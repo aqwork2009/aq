@@ -1,0 +1,26 @@
+#!/bin/bash
+#export LC_ALL="zh_CN.UTF-8"
+export LC_CTYPE="zh_CN.UTF-8"
+export XMODIFIERS='@im=fcitx'
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export GTK3_IM_MODULE=fcitx
+#fcitx -d  xim
+
+#systemctl stop firewalld
+emacs /home/aq/learn/github_aq/learn&
+emacs /home/aq/dynamic/build/bin /home/aq/dynamic &
+firefox&
+
+#export QT_IM_MODULE=fcitx
+#/opt/Qt5.11.0/Tools/QtCreator/bin/qtcreator
+QT=/home/aq/software/Qt/Tools/QtCreator/bin/qtcreator
+$QT /home/aq/dynamic/lib_base/lib_sy_base/lib_sy_base.pro  /home/aq/dynamic/lib_base/lib_sy_pt/lib_sy_pt.pro  /home/aq/dynamic/lib_base/lib_sy_program_manage/lib_sy_program_manage.pro  /home/aq/dynamic/lib_base/lib_sy_net/lib_sy_net.pro /home/aq/dynamic/maintenance/umt/umt.pro&
+
+$QT  /home/aq/dynamic/lib_base/lib_sy_base/lib_sy_base.pro  /home/aq/dynamic/lib_base/lib_sy_pt/lib_sy_pt.pro  /home/aq/dynamic/lib_base/lib_sy_program_manage/lib_sy_program_manage.pro  /home/aq/dynamic/lib_base/lib_sy_net/lib_sy_net.pro /home/aq/dynamic/maintenance/hms/hms.pro&
+
+#qt /home/aq/dynamic/lib_base/lib_sy_net_test/lib_sy_net_test.pro  /home/aq/dynamic/lib_base/test_net/test_client.pro&
+#sudo $QT /home/aq/dynamic/lib_base/lib_sy_base/lib_sy_base.pro  /home/aq/dynamic/lib_base/lib_sy_pt/lib_sy_pt.pro  /home/aq/dynamic/lib_base/lib_sy_program_manage/lib_sy_program_manage.pro  /home/aq/dynamic/lib_base/lib_sy_net/lib_sy_net.pro /home/aq/dynamic/maintenance/hmt_ctl/hmt_ctl.pro&
+$QT /home/aq/dynamic/maintenance/hmt_ctl/hmt_ctl.pro&
+tooltip
+

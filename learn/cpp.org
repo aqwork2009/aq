@@ -606,3 +606,63 @@ PIC使.so文件的代码段变为真正意义上的共享
 如果不加-fPIC,则加载.so文件的代码段时,代码段引用的数据对象需要重定位, 重定位会修改代码段的内容,这就造成每个使用这个.so文件代码段的进程在内核里都会生成这个.so文件代码段的copy.每个copy都不一样,取决于 这个.so文件代码段和数据段内存映射的位置.
 ** debug
 查看依赖搜索：ldd xxxx
+** c函数
+*** 字符处理
+#incldue <string.h>
+ 
+void *memset(void *s,int c,size_t n);
+ 
+size_t strlen(const char *s);
+ 
+void *memcpy(void *dest,const void *src,size_t n);
+void *memmove(void *dest,const void *src,size_t n);
+ 
+char *strcat(char *dest,const char *src);
+char *strncat(char *desk,const char *src,size_t n);
+ 
+//大小写敏感
+int memcmp(const void *s1,const void *s2,size_t n);
+int strcmp(const char *s1,const char *s2);
+int strncmp(const char *s1,const char *s2,size_t n);
+ 
+//大小写不敏感
+int strcasecmp(const char *s1,const char *s2);
+int strncasecmp(const char *s1,const char *s2,size_t n);
+ 
+//正反向查询
+char *strchr(const char *s,int c);
+char *strrchr(const char *s,int c);
+char *strstr(const char *haystack,const char *needle);
+ 
+//分割字符串
+char *strtok(char *str,const char *delim);
+char *strtok_r(char *str,const char *delim,char **saveptr);
+
+** define
+*** 二define中的三个特殊符号：#，##，#@
+ 
+
+    #define Conn(x,y) x##y
+    #define ToChar(x) #@x
+    #define ToString(x) #x
+
+(1)x##y表示什么？表示x连接y，举例说：
+
+    int n = Conn(123,456); /* 结果就是n=123456;*/
+    char* str = Conn("asdf", "adf"); /*结果就是 str = "asdfadf";*/
+
+（2）再来看#@x，其实就是给x加上单引号，结果返回是一个const char。举例说：
+char a = ToChar(1);结果就是a='1';
+做个越界试验char a = ToChar(123);结果就错了;
+但是如果你的参数超过四个字符，编译器就给给你报错了！
+error C2015: too many characters in constant   ：P
+(3）最后看看#x,估计你也明白了，他是给x加双引号
+char* str = ToString(123132);就成了str="123132";
+
+*** 得到指定地址上的一个字节或字
+ 
+
+    #define MEM_B( x ) ( *( (byte *) (x) ) ) 
+    #define MEM_W( x ) ( *( (word *) (x) ) )
+
+

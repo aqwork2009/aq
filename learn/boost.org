@@ -1,20 +1,40 @@
 
+* complile
 ** linux compile
+sudo ./bootstrap.sh 
 
-./b2 cxxflags=-fPIC cflags=-fPIC -a  --prefix=/home/work/source/boost_67_ins
+centos
+./b2 cxxflags=-fPIC cflags=-fPIC -j4 --with-regex --with-log --with-date_time --with-system --with-regex --with-thread --with-filesystem
+
+./b2 cxxflags=-fPIC cflags=-fPIC -a  --build-type=complete
+./b2 cxxflags="-std=gnu++11" -j4 cxxflags=-fPIC cflags=-fPIC --build-type=complete 
 ./b2 install
-./b2 --with-thread --toolset=msvc-14.1 --build-type=complete
+
 
 https://blog.csdn.net/this_capslock/article/details/47170313
 
-test
+
 
 ** windows cygwin
 ./bootstrap.sh
 ./b2 cxxflags='-std=gnu++11 -D__USE_W32_SOCKETS -D"__MSABI_LONG(x)=(x)" -fpermissive'
+
 ** windows qt mingw
 https://www.cnblogs.com/zhangnianyong/p/6546712.html
+
+./b2 --with-thread --toolset=msvc-14.1 --build-type=complete
 
 ** windows vs 2010
 1. 运行booststrap.bat得到：
 2. bjam stage --without-python --toolset=msvc-10.0 --build-type=complete --stagedir="D:\boost_1_56_0\bin\vc10"  link=static runtime-link=shared threading=multi debug release
+
+* code
+** 并行
+g++ -I/path/to/compute/include main.cpp -lOpenCLa
+** xml
+    /*
+        if(v1.first == "<xmlattr>"){ //it's an attribute
+            //read debug name="debugname"
+            cout<< "debug name=" << v1.second.get<string>("name") << endl;
+        }
+    */

@@ -1,3 +1,4 @@
+
 ** awk
 ifconfig | sed -n '/[0-9]\{2\}:/{s/://g;p;q}'|awk '{print $5}'
 grep -e "deviceid=[0-9]" /home/xhg/xhg_ai_update/config/version.ini|sed -n 's/[a-z]*=\([0-9]\{3,\}\)/\1/p'

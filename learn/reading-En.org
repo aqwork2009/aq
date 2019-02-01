@@ -1,0 +1,578 @@
+** lelet
+*** backpropagation
+英 [bækprɒpə'ɡeɪʃn] 美 [bækprɒpə'ɡeɪʃn]
+n.反向传播(B-P)，可以用来表示一种神经网络算法，例如：B-P网络。
+
+*** constitute
+英 [ˈkɒnstɪtju:t] 美 [ˈkɑnstətut]
+    vt.
+    构成，组成； 制定，设立； 等同于； 指派
+
+*** synthesize
+英 [ˈsɪnθəsaɪz] 美 [ˈsɪnθɪˌsaɪz]
+    vt.
+    综合； 人工合成； （通过化学手段或生物过程）合成； （音响）合成
+    vi.
+    合成； 综合；
+
+*** preprocessing.
+预处理，预加工.
+
+*** convolutional
+英 [kɒnvə'lu:ʃənəl] 美 [kɒnvə'luʃənəl]
+    卷积码，褶积码；
+
+*** outperform
+英 [ˌaʊtpəˈfɔ:m] 美 [ˌaʊtpərˈfɔrm]
+    vt.
+    做得比…更好，胜过；
+    v.
+    （机器等）性能比…好；
+
+*** variability
+英 [ˌveəriəˈbɪləti] 美 [ˌveriəˈbɪləti]
+
+    n.
+
+    变化性，易变，变化的倾向； 变率
+
+*** extraction
+英 [ɪkˈstrækʃn] 美 [ɪkˈstrækʃən]
+    n.
+    取出，抽出； 血统，家世，出身； [化]提取（法），萃取（法），回收物，提出物，精炼； [数]开方，求根
+
+*** paradigm
+英 [ˈpærədaɪm] 美 [ˈpærəˌdaɪm, -ˌdɪm]
+
+    n.
+
+    范例，样式，模范； 词形变化表；
+变形
+
+*** finite
+英 [ˈfaɪnaɪt] 美 [ˈfaɪˌnaɪt]
+
+    adj.
+
+    有限的； [语]限定的； [数]有穷的，有限的；
+    n.
+
+    有限性； 有限的事物；
+
+*** transducer
+英 [trænzˈdju:sə(r)] 美 [trænzˈdusər]
+
+    n.
+
+    传感器，变频器，变换器；
+*** nomenclature
+英 [nəˈmenklətʃə(r)] 美 [ˈnomənˌkletʃɚ, noˈmɛnklə-]
+
+    n.
+
+    系统命名法； 命名（过程）； （某一学科的）术语； 专门名称
+*** relay
+英 [ˈri:leɪ] 美 ['rileɪ]
+
+    n.
+
+    接替人员，替班； 传递； 接力赛； 继电器
+    vt.
+
+    转播，传达； 用驿马递送，使接替； 分程传递；
+*** heuristics
+英 [hjuˈrɪstɪks]
+
+    n.
+
+    启发（法），探索法；
+*** unified
+英 ['ju:nɪfaɪd] 美 ['junɪfaɪd]
+
+    adj.
+
+    (unify 的过去式和过去分词)； 统一的； 统一标准的； 一元化的
+    v.
+
+    使联合( unify的过去式和过去分词 )； 使相同； 使一致； 统一
+
+*** criterion
+英 [kraɪˈtɪəriən] 美 [kraɪˈtɪriən]
+
+    n.
+
+    （批评、判断等的）标准，准则； 规范；
+
+*** glyph
+英 [glɪf] 美 [ɡlɪf]
+
+    n.
+
+    纵的沟纹； 竖沟； 浮雕； 象形文字
+
+*** accurate
+英 [ˈækjərət] 美 [ˈækjərɪt]
+
+    adj.
+
+    精确的，准确的； 正确无误的
+
+*** extractor
+英 [ɪkˈstræktə(r)] 美 [ɪkˈstræktər]
+
+    n.
+
+    抽油烟机；
+
+*** distortions
+[dɪˈstɔ:ʃənz]
+
+    n.
+
+    曲解，失真( distortion的名词复数 )；
+
+*** daunting
+英 [dɔ:ntɪŋ] 美 [dɔntɪŋ]
+
+    adj.
+
+    令人畏惧的； 使人气馁的； 令人怯步的；
+    v.
+
+    威吓(daunt的现在分词)； 使气馁； 使害怕； 使失去信心
+
+*** literature
+英 [ˈlɪtrətʃə(r)] 美 [ˈlɪtərəˌtʃʊr, -tʃɚ]
+
+    n.
+
+    文学； 文学作品； 文献； 著作
+
+*** devote
+英 [dɪˈvəʊt] 美 [dɪˈvoʊt]
+
+    vt.
+
+    把…奉献（给），把…专用（于）； 奉献；
+
+*** merits
+英 ['merɪts] 美 ['merɪts]
+
+    n.
+
+    [宗教]（行善得到的）功德( merit的名词复数 )； 功勋； 长处； 荣誉
+    v.
+
+    值得，应获得( merit的第三人称单数 )； [宗教]（因行善而）应得（善报）； 应受赏（或罚），应受报答； [宗教]积德
+
+*** arithmetic
+英 [əˈrɪθmətɪk] 美 [əˈrɪθmɪtɪk]
+
+    n.
+
+    算术，计算； 算法；
+
+*** brute
+英 [bru:t] 美 [brut]
+
+    n.
+
+    畜生，兽； 残暴的人； 兽性；
+    adj.
+
+    残忍的； 畜生的，动物的； 无理性的；
+
+*** numerical
+英 [nju:ˈmerɪkl] 美 [nuˈmerɪkl]
+
+    adj.
+
+    数字的，用数字表示的，数值的；
+
+*** refinement
+英 [rɪˈfaɪnmənt] 美 [rɪˈfaɪnmənt]
+
+    n.
+
+    精炼，提纯，净化； 改良品； 细微的改良，极致； 优雅，高贵的动作
+
+*** intricate
+英 [ˈɪntrɪkət] 美 [ˈɪntrɪkɪt]
+
+    adj.
+
+    错综复杂的； 难理解的； 曲折； 盘错
+
+*** fed
+英 [fed] 美 [fɛd]
+
+    n.
+
+    (F-)<美，非正>（美国）联邦政府执法官员，（尤指）联邦调查局调查员； feed的过去式和过去分词；
+    v.
+
+    喂养( feed的过去式和过去分词 )； 满足（欲望等）； 向…提供； 供…作食物
+
+*** attributed
+[əˈtribju:tid]
+
+    v.
+
+    认为…是由于（ attribute的过去式和过去分词 ）； 把…归于 ； 认为是…所为；
+
+*** reliance
+英 [rɪˈlaɪəns] 美 [rɪˈlaɪəns]
+
+    n.
+
+    依靠，依赖； 信任，信赖，信心； 所信赖的人或物；
+
+*** proportion
+英 [prəˈpɔ:ʃn] 美 [prəˈpɔrʃn]
+
+    n.
+
+    比，比率； [数学]比例（法）； 面积； 相称，平衡
+    vt.
+
+    使成比例； 使相称； 使均衡；
+
+*** benchmark
+英 [ˈbentʃmɑ:k] 美 [ˈbentʃmɑrk]
+
+    n.
+
+    基准，参照； 标准检查程序； 水准标；
+    vt.
+
+    检测（用基准问题测试）；
+*** tailor
+英 [ˈteɪlə(r)] 美 [ˈtelɚ]
+
+    n.
+
+    裁缝，成衣工；
+    vi.
+
+    做裁缝；
+    vt.
+
+    调整使适应； 为…裁制衣服； 为…做衣服； 剪裁，制作
+*** invariance
+英 [ɪn'veərɪəns] 美 [ɪn'verɪrns]
+
+    n.
+
+    不变性，恒定性；
+*** comparison
+英 [kəmˈpærɪsn] 美 [kəmˈpærɪsən]
+
+    n.
+
+    比较，对照； [语]比喻； 比较级
+*** overall
+英 [ˌəʊvərˈɔ:l] 美 [ˌoʊvərˈɔl]
+
+    adj.
+
+    全部的； 全体的； 一切在内的； 综合的
+    adv.
+
+    全面地； 总地； 总的说来；
+    n.
+
+    工装裤； 罩衫； 〈英〉（军官的）紧身军裤；
+
+*** transformer
+英 [trænsˈfɔ:mə(r)] 美 [trænsˈfɔrmə(r)]
+
+    n.
+
+    变压器； 促使变化的（或人物），改革者；
+
+变形
+
+复数： transformers
+
+*** over-segmentation
+过度分割
+
+*** discriminative
+英 [dɪs'krɪmɪnətɪv] 美 [dɪ'skrɪməˌneɪtɪv]
+
+    adj.
+
+    有判别力；
+
+*** promising
+英 [ˈprɒmɪsɪŋ] 美 [ˈprɑmɪsɪŋ]
+
+    adj.
+
+    有前途的； 有希望的； 光明； 有为
+
+*** formulate
+英 [ˈfɔ:mjuleɪt] 美 [ˈfɔrmjuleɪt]
+
+    vt.
+
+    构想出，规划； 确切地阐述； 用公式表示；
+
+*** transduction
+英 [træns'dʌkʃən] 美 [træns'dʌkʃən]
+
+    n.
+
+    换能，转换，变频； 转导；
+*** probabilities
+[ˌprɔbəˈbilitiz]
+
+    n.
+
+    可能性，可能发生的事( probability的名词复数 )； <数>概率；
+*** discrepancy
+英 [dɪsˈkrepənsi] 美 [dɪˈskrɛpənsi]
+
+    n.
+
+    矛盾； 不符合（之处）
+
+*** relevant
+英 [ˈreləvənt] 美 [ˈreləvənt]
+
+    adj.
+
+    有关的，中肯的； 相关联的； 确切的； 有重大意义[作用]的，实质性的
+
+*** theoretical
+英 [ˌθɪəˈretɪkl] 美 [ˌθiəˈretɪkl]
+
+    adj.
+
+    理论的； 推想的，假设的； 空论的；
+
+*** capacity
+英 [kəˈpæsəti] 美 [kəˈpæsɪti]
+
+    n.
+
+    容量； 才能； 性能； 生产能力
+    adj.
+
+    充其量的，最大限度的
+
+*** trade-off
+英 [ˈtreɪdˌɔ:f, -ˌɔf] 美 [ˈtredˌɔf, -ˌɑf]
+
+    n.
+
+    交易； 权衡；
+
+变形
+
+*** discrete
+英 [dɪˈskri:t] 美 [dɪˈskrit]
+
+    adj.
+
+    分离的，不相关联的； 分立式； 非连续；
+
+*** combinatorial
+英 [ˌkɒmbɪnə'tɔ:rɪəl] 美 [kəmˌbaɪnə'tɒrɪrl]
+
+    adj.
+
+    组合的；
+
+*** analytically
+英 [ˌænə'lɪtɪklɪ] 美 [ˌænə'lɪtɪklɪ]
+
+    adv.
+
+    分析地，分析法地；
+
+*** perturbations
+[ˌpɜ:təˈbeɪʃənz]
+
+    n.
+
+    <正>忧虑( perturbation的名词复数 )； 不安； 烦恼； <术>摄动
+
+*** descent
+英 [dɪˈsent] 美 [dɪˈsɛnt]
+
+    n.
+
+    下降； 血统； 倾斜；
+
+*** substitute
+英 [ˈsʌbstɪtju:t] 美 [ˈsʌbstɪtut]
+
+    vt.& vi.
+
+    代替，替换，代用；
+    n.
+
+    代替者； 替补（运动员）； 替代物； [语法学]代用词
+    vi.
+
+    用…替代；
+
+*** diagonal
+英 [daɪˈægənl] 美 [daɪˈæɡənəl]
+
+    n.
+
+    [数]对角线； 斜线； 斜列； 斜纹布
+    adj.
+
+    对角线的； 斜线的； 斜的； 斜纹的
+
+*** contrary
+英 [ˈkɒntrəri] 美 [ˈkɑntreri]
+
+    adj.
+
+    相反的； 违反的，反对的； 对立的； 顽固的，任性的
+    n.
+
+    对立或相反的事物； 对立方； [逻]反对命题；
+    adv.
+
+    相反地，矛盾地；
+*** stochastic
+英 [stə'kæstɪk] 美 [stə'kæstɪk]
+
+    adj.
+
+    随机的；
+
+*** fluctuates
+[ˈflʌktjueits]
+
+    v.
+
+    波动，涨落，起伏( fluctuate的第三人称单数 )；
+
+*** trajectory
+英 [trəˈdʒektəri] 美 [trəˈdʒɛktəri]
+
+    n.
+
+    [物]弹道，轨道； [几]轨线
+
+*** converges
+[kənˈvə:dʒz]
+
+    v.
+
+    （线条、运动的物体等）会于一点( converge的第三人称单数 )； （趋于）相似或相同； 人或车辆汇集； 聚集
+
+*** minima
+英 [ˈmɪnɪmə] 美 ['mɪnɪmə]
+
+    n.
+
+    最小值，最小化（minimum的复数）； 最低限度，最小量（ minimum的名词复数 ）； 极小量；
+
+*** impediment
+英 [ɪmˈpedɪmənt] 美 [ɪmˈpedɪmənt]
+
+    n.
+
+    妨碍，阻止； 口吃，结巴； 障碍物； 法定婚姻的障碍
+
+*** sigmoidal
+英 [sɪɡ'mɔɪdl] 美 [sɪɡ'mɔɪdl]
+
+    释义
+
+    反曲；
+
+*** derivations
+英 [derɪ'veɪʃnz] 美 [derɪ'veɪʃnz]
+
+    n.
+
+    发展( derivation的名词复数 )； 起源； 派生； 词源
+
+*** disturbance
+英 [dɪˈstɜ:bəns] 美 [dɪˈstɜrbəns]
+
+    n.
+
+    打扰； 骚乱，变乱； 困扰； 烦闷
+
+变形
+
+复数： disturbances
+
+*** formalism
+英 [ˈfɔ:məlɪzəm] 美 [ˈfɔrməlɪzəm]
+
+    n.
+
+    （艺术、宗教等方面的）形式主义；
+    adj.
+
+    形式主义的；
+
+*** rigorous
+英 [ˈrɪgərəs] 美 [ˈrɪɡərəs]
+
+    adj.
+
+    严密的； 缜密的； 严格的； 枯燥的
+
+*** deriving
+[diˈraivɪŋ]
+
+    v.
+
+    得到( derive的现在分词 )； （从…中）得到获得； 源于； （从…中）提取
+
+*** heterogeneous
+英 [ˌhetərəˈdʒi:niəs] 美 [ˌhɛtərəˈdʒiniəs, -ˈdʒinjəs]
+
+    adj.
+
+    各种各样的； 成分混杂的；
+
+*** mystery
+英 [ˈmɪstri] 美 [ˈmɪstəri]
+
+    n.
+
+    秘密，谜； 神秘，神秘的事物； 推理小说，推理剧； 常作 mysteries 秘技，秘诀
+
+*** conjectured
+[kənˈdʒektʃəd]
+
+    v.
+
+    推测，猜测，猜想( conjecture的过去式和过去分词 )；
+
+*** hypotheses
+英 [haɪ'pɒθəsi:z] 美 [haɪ'pɒθəsiz]
+
+    n.
+
+    （有少量事实依据但未被证实的）假说( hypothesis的名词复数 )； 假设； （凭空的）猜想； 猜测
+
+*** acyclic
+英 [ˌeɪˈsaɪklɪk] 美 [eˈsaɪklɪk, eˈsɪklɪk]
+
+    adj.
+
+    非循环的，无环的，脂肪族的； 非周期；
+
+*** reminiscent
+英 [ˌremɪˈnɪsnt] 美 [ˌrɛməˈnɪsənt]
+
+    adj.
+
+    怀旧的； 回忆往事的； 使人联想…的；
+    n.
+
+    回忆录作者；
+

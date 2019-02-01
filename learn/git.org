@@ -34,6 +34,7 @@ git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96
 
 git config --list
 ** git remote
+
 git fetch origin master
 //其中origin是对远程服务器的称呼，默认为master。git clone的时候可以自己指定.
 //如git clone -o booyah，那么你默认的远程分支名字将会是 booyah/master
@@ -46,7 +47,7 @@ git merge origin/master
 //相当于git fetch 和 git merge，即更新远程仓库的代码到本地仓库，然后将内容合并到当前分支。
 git pull origin master
 
-
+更改地址 git remote set-url origin http://192.168.100.235:9797/john/git_test.git
 *** update local
 //abendent local modified
 git checkout head .
@@ -60,6 +61,8 @@ git remote add origin https://github.com/aqwork2009/aq.git
 git push -u origin master
 
 
+** git log
+git log --name-status 	显示新增、修改、删除的文件清单。
 
 ** git diff
 git status|grep -E "cpp$|h$"|awk '{print $2}'|xargs -i git diff {}
@@ -86,7 +89,16 @@ git rm -r --cached .
 /x64
 /Release
 
+** git tag
+查看 git tag 
+创建 git tag -a v1.4 -m 'my version 1.4'
+推送 git push origin --tags
+签出 git checkout -b version2 v2.0.0
+
+
 ** 报错
+库改config
+
 [receive]
  denyCurrentBranch = ignore
 

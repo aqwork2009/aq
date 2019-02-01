@@ -14,6 +14,8 @@
 13 6.查看某个表全部字段
 14 desc slow_log;
 15 show create table slow_log\G; （不仅可以显示表信息，还可以显示建表语句）
+   show create procedure p_m_client;
+
 16 7.查看当前用户
 17 select user();
 18 8.查看当前所在数据库
@@ -37,6 +39,7 @@
 36 show processlist;
 37 16.创建普通用户并授权给某个数据库
 38 grant all on databasename.* to 'user1'@'localhost' identified by '123456';
+grant all on hm.* to 'xhg'@'%' identified by 'xhg123456' with grant option;
 39 17.查询表数据
 40 select * from mysql.db;           //查询该表中的所有字段
 41 select count(*) from mysql.user;  //count(*)表示表中有多少行
@@ -72,7 +75,7 @@
 71 mysql语句
 72 EOF
 ** 安装
-1.使用安装命令 ：yum -y install mysql mysql-server mysql-devel
+*** centos 1.使用安装命令 ：yum -y install mysql mysql-server mysql-devel
 
 安装完成却发现Myserver安装缺失，在网上找原因，原来是因为CentOS 7上把MySQL从默认软件列表中移除了，用MariaDB来代替，所以这导致我们必须要去官网上进行下载，找到链接，用wget打开：
 
@@ -93,3 +96,867 @@ c.两次进行yum -y install mysql mysql-server mysql-devel，安装成功。再
 　　添加到开机启动
 
 　　~]# systemctl enable mariadb.service
+*** ubuntu 安装
+
+ Ubuntu安装MySQL数据库
+
+Ubuntu的上安装的MySQL非常简单只需要几条命令就可以完成。
+　　sudo apt-get install mysql-server（卸载是sudo aptitude purge mysql-server但是要安装sudo apt-get install aptitude才能用）
+
+
+Ubuntu 16.04安装使用MySQL
+
+MySQL是流行的数据库系统，下面记录了在Ubuntu 16.04上安装MySQL步骤。
+
+如果你使用的是Ubuntu 16.04以前的版本，可以看这里：Ubuntu 14.04/15.10升级到Ubuntu 16.04 LTS。
+
+
+安装前先更新软件包列表：
+
+
+$ sudo apt update
+1
+$ sudo apt update
+在Ubuntu 16.04上安装MySQL：
+
+
+$ sudo apt install mysql-server mysql-client
+1
+$ sudo apt install mysql-server mysql-client
+在安装过程中需要你输入MySQL 管理员用户（root）密码
+运行MySQL初始化安全脚本：
+
+$ sudo mysql_secure_installation
+mysql_secure_installation脚本设置的东西：更改root密码、移除MySQL的匿名用户、禁止root远程登录、删除test数据库。使用上面的这些选项可以提高MySQL的安全。
+MySQL数据库基本使用
+
+使用root用户登录：
+
+
+$ mysql -u root -p
+
+输入root密码：
+mysql -h localhost -u root -p
+-u 表示选择登陆的用户名
+-p 表示登陆的用户密码
+-h 登录主机名
+
+创建MySQL数据库和用户：
+
+
+mysql> create database snailblog;
+
+上面命令创建了一个名为snailblog的数据库。
+
+创建用户，并使用snailblog数据库：
+
+
+mysql> grant all on snailblog.* to 'man_user' identified by 'test1234';
+使用新用户登录：
+
+
+$ mysql -u man_user -p snailblog
+
+Screen Shot 2016-04-02 at 09.25.53
+
+创建表：
+
+mysql> CREATE TABLE user (id INT, name VARCHAR(20), email VARCHAR(20));
+插入记录：
+
+mysql> INSERT INTO user (id,name,email) VALUES(1,"bar","bar@gmail.com");
+mysql> INSERT INTO user (id,name,email) VALUES(2,"foo","foo@163.com");
+mysql> INSERT INTO user (id,name,email) VALUES(3,"cat","cat@gmail.com");
+简单查询：
+
+mysql> SELECT * FROM user;
+Screen Shot 2016-04-02 at 09.31.07
+
+退出MySQL命令行：
+
+
+mysql> quit
+Bye
+1
+
+停止MySQL数据库服务：
+
+
+$ sudo systemctl stop mysql.service
+
+启动MySQL数据库服务：
+
+
+$ sudo systemctl start mysql.service
+
+重启MySQL数据库服务：
+
+
+$ sudo systemctl restart mysql.service
+查看MySQL运行状态：
+
+$ sudo systemctl status mysql.service
+
+MySQL的配置文件：
+
+
+$ sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+MySQL 5.6文档：http://dev.mysql.com/doc/refman/5.6/en/
+
+** 错误
+*** 重置密码解决MySQL for Linux错误 ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+
+一般这个错误是由密码错误引起，解决的办法自然就是重置密码。
+
+假设我们使用的是root账户。
+
+1.重置密码的第一步就是跳过MySQL的密码认证过程，方法如下：
+
+#vim /etc/my.cnf(注：windows下修改的是my.ini)
+
+在文档内搜索mysqld定位到[mysqld]文本段：
+/mysqld(在vim编辑状态下直接输入该命令可搜索文本内容)
+
+在[mysqld]后面任意一行添加“skip-grant-tables”用来跳过密码验证的过程，如下图所示：
+
+保存文档并退出：
+
+#:wq
+2.接下来我们需要重启MySQL：
+
+/etc/init.d/mysql restart(有些用户可能需要使用/etc/init.d/mysqld restart)
+
+3.重启之后输入#mysql即可进入mysql。
+
+ 
+
+4.接下来就是用sql来修改root的密码
+
+mysql> use mysql;
+mysql> update user set password=password("你的新密码") where user="root";
+mysql> flush privileges;
+mysql> quit
+
+到这里root账户就已经重置成新的密码了。
+
+5.编辑my.cnf,去掉刚才添加的内容，然后重启MySQL。大功告成！
+
+ 
+
+ 网上有很多关于这个问题的解决说明，很多刚接触的朋友可能比较迷惑的是在自己的平台上找不到my.cnf或者my.ini文件，如果你是Linux,使用如下方式可以搜索到：
+
+至于windows平台，去安装目录下找一下my.ini吧。
+*** 修改权限策略
+validate_password_policy有以下取值：
+Policy	Tests Performed
+0 or LOW 	Length
+1 or MEDIUM 	Length; numeric, lowercase/uppercase, and special characters
+2 or STRONG 	Length; numeric, lowercase/uppercase, and special characters; dictionary file
+
+必须修改两个全局参数：
+
+mysql> set global validate_password_policy=0;
+Query OK, 0 rows affected (0.00 sec)
+
+*** 出现ERROR 1396 (HY000): Operation CREATE USER failed for 'sonar'@'%'，说明sonar用户已经在mysql.user表中建立，若建立该用户，需先删除该用户，步骤如下：
+
+1. delete from mysql.user where user='sonar'; 删除用户
+
+2.CREATE USER 'sonar'@'%'IDENTIFIED BY 'sonar';天假用户
+
+3. flush privileges; 清理缓存
+
+4. select * from mysql.user where user='sonar';查看该用户是否存在 ，结果是null
+
+5.  flush privileges;清理缓存
+
+6. GRANT ALL ON hm.* TO 'xhg'@'%' IDENTIFIED BY 'xhg';用户操作授权
+
+** 元数据
+https://www.cnblogs.com/Xjng/p/7136424.html
+
+Mysql元数据分析
+*** 一、information_schema库
+
+information_schema库中的表，保存的是Mysql的元数据。
+官网元数据表介绍
+InnoDB相关的表介绍
+库中有表：
+
++---------------------------------------+
+| Tables_in_information_schema          |
++---------------------------------------+
+| CHARACTER_SETS                        |
+| COLLATIONS                            |
+| COLLATION_CHARACTER_SET_APPLICABILITY |
+| COLUMNS                               |
+| COLUMN_PRIVILEGES                     |
+| ENGINES                               |
+| EVENTS                                |
+| FILES                                 |
+| GLOBAL_STATUS                         |
+| GLOBAL_VARIABLES                      |
+| KEY_COLUMN_USAGE                      |
+| PARAMETERS                            |
+| PARTITIONS                            |
+| PLUGINS                               |
+| PROCESSLIST                           |
+| PROFILING                             |
+| REFERENTIAL_CONSTRAINTS               |
+| ROUTINES                              |
+| SCHEMATA                              |
+| SCHEMA_PRIVILEGES                     |
+| SESSION_STATUS                        |
+| SESSION_VARIABLES                     |
+| STATISTICS                            |
+| TABLES                                |
+| TABLESPACES                           |
+| TABLE_CONSTRAINTS                     |
+| TABLE_PRIVILEGES                      |
+| TRIGGERS                              |
+| USER_PRIVILEGES                       |
+| VIEWS                                 |
+| INNODB_CMP_RESET                      |
+| INNODB_TRX                            |
+| INNODB_CMPMEM_RESET                   |
+| INNODB_LOCK_WAITS                     |
+| INNODB_CMPMEM                         |
+| INNODB_CMP                            |
+| INNODB_LOCKS                          |
++---------------------------------------+
+
+1. CHARACTER_SETS
+
+保存所有Mysql可用的字符集。相当于命令：SHOW CHARACTER SET
+2. COLLATIONS
+
+提供了关于各字符集的对照信息
+3. COLLATION_CHARACTER_SET_APPLICABILITY
+4. COLUMNS
+
+这个表保存的是所有数据库的列信息
+
+TABLE_CATALOG
+TABLE_SCHEMA 库名
+TABLE_NAME 表名
+COLUMN_NAME 列名
+ORDINAL_POSITION 应该是该列在该表中的顺序
+COLUMN_DEFAULT 列的默认值
+IS_NULLABLE 是否可以为NULL
+DATA_TYPE 数据类型
+CHARACTER_MAXIMUM_LENGTH 数据的长度
+CHARACTER_OCTET_LENGTH 数据的存储长度
+NUMERIC_PRECISION
+NUMERIC_SCALE
+CHARACTER_SET_NAME 列的字符编码
+COLLATION_NAME
+COLUMN_TYPE 列的类型，例如varchar(20)
+COLUMN_KEY 如果等于PRI，表示是主键
+EXTRA 定义列的时候的其他信息，例如自增，主键
+PRIVILEGES 操作权限有：select,insert,update,references （ 官方说明 ）
+COLUMN_COMMENT 列的备注
+
+例子：
+
+***************************[ 1. row ]***************************
+TABLE_CATALOG            | def
+TABLE_SCHEMA             | test
+TABLE_NAME               | sleep_account
+COLUMN_NAME              | key
+ORDINAL_POSITION         | 1
+COLUMN_DEFAULT           | None
+IS_NULLABLE              | NO
+DATA_TYPE                | int
+CHARACTER_MAXIMUM_LENGTH | None
+CHARACTER_OCTET_LENGTH   | None
+NUMERIC_PRECISION        | 10
+NUMERIC_SCALE            | 0
+CHARACTER_SET_NAME       | None
+COLLATION_NAME           | None
+COLUMN_TYPE              | int(11)
+COLUMN_KEY               | PRI
+EXTRA                    | auto_increment
+PRIVILEGES               | select,insert,update,references
+COLUMN_COMMENT           | 
+
+5. COLUMN_PRIVILEGES
+
+列的特权信息，应该和COLUMN表的PRIVILEGES的功能差不多的。
+6. ENGINES
+
+存储Mysql支持的数据库引擎类型，相当于命令SHOW ENGINES
+ENGINE 引擎名
+SUPPORT 是否支持，Yes，No，Default(默认)
+COMMENT 引擎的说明
+TRANSACTIONS 是否支持事务
+XA
+SAVEPOINTS
+
+***************************[ 1. row ]***************************
+ENGINE       | InnoDB
+SUPPORT      | DEFAULT
+COMMENT      | Supports transactions, row-level locking, and foreign keys
+TRANSACTIONS | YES
+XA           | YES
+SAVEPOINTS   | YES
+
+7. EVENTS
+
+保存计划事件（scheduled events）的信息，相当于命令 show events
+8. FILES
+
+保存数据库文件的存储信息，当使用Mysql集群的时候有用，也就是NDB。
+9.GLOBAL_STATUS
+
+保存Mysql 的全局状态。全局是相对于Session而言的，Session是指单个Mysql连接，全局可以理解为自从Mysql启动以来，所有的连接，产生的状态。
+10.GLOBAL_VARIABLES
+
+保存Mysql的全局参数。
+状态（status）是随着Mysql的运行，会变化的，
+参数（variable）只有主动修改，才会变化的。
+可以使用show status 语法查看
+11.KEY_COLUMN_USAGE
+
+保存所有约束（CONSTRAINT）
+CONSTRAINT_CATALOG
+CONSTRAINT_SCHEMA 约束的数据库
+CONSTRAINT_NAME 约束名
+TABLE_CATALOG
+TABLE_SCHEMA 约束属于哪个数据库
+TABLE_NAME 约束属于哪个数据表
+COLUMN_NAME 约束的列名
+ORDINAL_POSITION 排序权重
+POSITION_IN_UNIQUE_CONSTRAINT
+REFERENCED_TABLE_SCHEMA
+REFERENCED_TABLE_NAME
+REFERENCED_COLUMN_NAME
+
+例如：
+test库的account表中，主键是key，就会有下面一行记录
+
+CONSTRAINT_CATALOG            | def
+CONSTRAINT_SCHEMA             | test
+CONSTRAINT_NAME               | PRIMARY
+TABLE_CATALOG                 | def
+TABLE_SCHEMA                  | test
+TABLE_NAME                    | account
+COLUMN_NAME                   | key
+ORDINAL_POSITION              | 1
+POSITION_IN_UNIQUE_CONSTRAINT | None
+REFERENCED_TABLE_SCHEMA       | None
+REFERENCED_TABLE_NAME         | None
+REFERENCED_COLUMN_NAME        | None
+
+12.PARAMETERS
+
+保存了所有已定义的PARAMETERS 信息
+13.PARTITIONS
+
+保存所有分区表信息
+14.PLUGINS
+
+保存所有Mysql已装载的插件信息
+15. PROCESSLIST
+
+保存Mysql的连接信息，一行记录代表一个数据库连接，代表一个Mysql服务线程。相当于SHOW PROCESSLIST
+查看该表会带来一定的性能影响，因为需要一个锁，查看Threads表却不会。
+而且查看Threads表会显示后台线程，PROCESSLIST缺不会显示。
+这里的线程可以使用KILL语法来杀掉
+
+ID 连接ID，根据这个ID来执行KILL命令
+USER 连接的用户名
+HOST 连接的客户端的IP，格式是IP:PORT。如果想查看一个连接对应的是哪个客户端进程，就可以这样：假如HOST='192.168.1.1:23501'，去到192.168.1.1这台机，通过命令netstat -apn|grep 23501,看到这样的结果：
+
+192.168.1.1:23501           192.168.1.10:3306            ESTABLISHED 14599/python2.7
+
+就可以知道这个Mysql的连接的客户端是14599/python2.7这个进程
+
+DB 连接的数据库
+COMMAND 线程在执行的命令，所有命令。常用的命令有：SLeep（等待客户端发送SQL），Query（正在执行一个SQL）
+TIME 单位是秒，表示这个连接处于现在这个命令多久了
+STATE 线程执行的命令的细节描述，常见的描述。一般这个状态持续的时间是很短的，如果持续了很久，就表明有问题了。常见的描述：Updating（正在更新数据），executing（正在执行），Sending data（发送数据给客户端）。这里的描述和show profile for query 1;里的执行步骤是对应的
+INFO 正在执行的SQL语句，如果没有执行SQL，为空。
+
+例子：
+
+ID      | 51
+USER    | root
+HOST    | localhost:59487
+DB      | information_schema
+COMMAND | Query
+TIME    | 0
+STATE   | executing
+INFO    | select * from PROCESSLIST limit 1
+
+16. PROFILING
+
+保存性能分析的数据，相当于 SHOW PROFILES。只有当session的profiling 参数设置为1，这个表才有数据。
+17.REFERENTIAL_CONSTRAINTS
+
+保存外键的数据。
+18.ROUTINES
+
+保存routines 信息，包括procedures 和 functions，但是不包含用户定于的functions。
+19.SCHEMATA
+
+保存数据库的信息，一行记录是一个数据库（database），类似命令show databases;
+20.SCHEMA_PRIVILEGES
+
+保存数据库的权限信息。
+GRANTEE 权限拥有者，格式是'user_name'@'host_name'，例如root'@'192.168.137.1
+TABLE_CATALOG
+TABLE_SCHEMA 权限对应的数据库
+PRIVILEGE_TYPE 权限类型
+IS_GRANTABLE 是否可以分配权限给其他拥有者，一般为NO
+
+       GRANTEE: 'root'@'192.168.137.1'
+ TABLE_CATALOG: def
+  TABLE_SCHEMA: ggy_wrd
+PRIVILEGE_TYPE: SELECT
+  IS_GRANTABLE: NO
+
+这个表示拥有者'root'@'192.168.137.1'有权限对数据库ggy_wrd执行SELECT的操作
+21.SESSION_STATUS
+
+保存SESSION的状态，类似于GLOBAL_STATUS
+22.SESSION_VARIABLES
+
+保存SESSION的变量，类似于GLOBAL_BARIABLES
+23.STATISTICS
+
+保存索引信息。相当于show index from tbl_name
+
+TABLE_CATALOG
+TABLE_SCHEMA 数据库名
+TABLE_NAME 表名
+NON_UNIQUE 是否唯一
+INDEX_SCHEMA
+INDEX_NAME
+SEQ_IN_INDEX
+COLUMN_NAME 列名
+COLLATION
+CARDINALITY
+SUB_PART
+PACKED
+NULLABLE
+INDEX_TYPE 索引类型，一般是BTREE
+COMMENT
+INDEX_COMMENT
+
+例子：
+
+TABLE_CATALOG: def
+ TABLE_SCHEMA: db_kklauncher
+   TABLE_NAME: sleep_local_account
+   NON_UNIQUE: 0
+ INDEX_SCHEMA: db_kklauncher
+   INDEX_NAME: PRIMARY
+ SEQ_IN_INDEX: 1
+  COLUMN_NAME: key
+    COLLATION: A
+  CARDINALITY: 10673
+     SUB_PART: NULL
+       PACKED: NULL
+     NULLABLE: 
+   INDEX_TYPE: BTREE
+      COMMENT: 
+INDEX_COMMENT: 
+
+24.TABLES
+
+保存数据表信息。类似show tables。
+TABLE_CATALOG
+TABLE_SCHEMA
+TABLE_NAME 表名
+TABLE_TYPE 表的类型
+ENGINE 表的存储引擎
+VERSION 表的版本
+ROW_FORMAT
+TABLE_ROWS 表的行数
+AVG_ROW_LENGTH 平均一行的长度
+DATA_LENGTH 数据长度
+MAX_DATA_LENGTH 最大一行的数据长度
+INDEX_LENGTH 索引的长度
+DATA_FREE
+AUTO_INCREMENT 自增到哪个数
+CREATE_TIME 创建时间
+UPDATE_TIME 最后修改表结构的时间
+CHECK_TIME
+TABLE_COLLATION 表的编码
+CHECKSUM
+CREATE_OPTIONS
+TABLE_COMMENT
+
+TABLE_CATALOG   | def
+TABLE_SCHEMA    | db_kklauncher
+TABLE_NAME      | sleep_local_account
+TABLE_TYPE      | BASE TABLE
+ENGINE          | InnoDB
+VERSION         | 10
+ROW_FORMAT      | Compact
+TABLE_ROWS      | 10095
+AVG_ROW_LENGTH  | 365
+DATA_LENGTH     | 3686400
+MAX_DATA_LENGTH | 0
+INDEX_LENGTH    | 327680
+DATA_FREE       | 415236096
+AUTO_INCREMENT  | 24342
+CREATE_TIME     | 2016-12-27 16:31:56
+UPDATE_TIME     | None
+CHECK_TIME      | None
+TABLE_COLLATION | utf8_general_ci
+CHECKSUM        | None
+CREATE_OPTIONS  | 
+TABLE_COMMENT   |
+
+25.TABLESPACES
+
+保存数据表占用的空间，如果表引擎是InnoDB，需要去查 INNODB_SYS_TABLESPACES 和INNODB_SYS_DATAFILES
+26. TABLE_CONSTRAINTS
+
+保存表的约束信息。
+27.TABLE_PRIVILEGES
+
+保存表的权限信息。如果赋予拥有者一个表的权限，TABLE_PRIVILEGES表就会有数据。如果是赋予拥有者一个库的权限，这里就不会有数据，只会在SCHEMA_PRIVILEGES表里面有数据。
+这里的数据和SCHEMA_PRIVILEGES的数据意义是一样的，只不过多了TABLE_SCHEMA这列。
+28.TRIGGERS
+
+保存触发器的信息
+29.USER_PRIVILEGES
+
+这里会存储用户的权限。
+30.VIEWS
+
+保存视图信息
+31.INNODB_CMP_RESET和INNODB_CMP
+
+保存被压缩的InnoDB表的信息
+32.INNODB_TRX
+
+保存InnoDB的事务信息（不会包含只读的事务）。
+官方介绍
+
+trx_id 事务ID，唯一的，只读事务没有生成ID
+trx_state 当前的状态，取值：RUNNING（正在执行）, LOCK WAIT（等待锁）, ROLLING BACK（回滚）, and COMMITTING（提交中）
+trx_started 事务启动的时间
+trx_requested_lock_id 如果状态是LOCK WAIT，这里显示的是正在等待的锁的ID，对应INNODB_LOCKS表的LOCK_ID列
+trx_wait_started 如果状态是LOCK WAIT，这里显示的是该事务等待锁等待了多久
+trx_weight 事务的权重，权重越低，Mysql越先执行一个事务，这个主要用于解决死锁
+trx_mysql_thread_id 事务对应的线程ID，和PROCESSLIST表的ID列对应
+trx_query 事务正在执行的SQL
+trx_operation_state 事务当前的操作状态，如果没有，显示NULL
+trx_tables_in_use 事务处理当前的SQL，也就是trx_query里的SQL，需要打开多少个表
+trx_tables_locked 事务处理当前的SQL需要上锁多少个表的行锁
+trx_lock_structs 有多少个锁会被该事务保留，也就是执行该事务需要锁住多少条行记录
+trx_lock_memory_bytes 锁需要耗用的内存
+trx_rows_locked 事务处理当前的SQL需要上锁多少个行锁，这只是个近似值
+trx_rows_modified 事务需要修改或新增多少行内容
+trx_concurrency_tickets 该线程被调度前，需要执行多少工作
+trx_isolation_level 事务的隔离级别
+trx_unique_checks 是否打开唯一检查（unique_checks）
+trx_foreign_key_checks 是否打开外键唯一检查（ foreign key checks）
+trx_last_foreign_key_error 上一次外键错误信息
+trx_adaptive_hash_latched
+trx_adaptive_hash_timeout
+
+例子：
+
+trx_id                     | 7B441
+trx_state                  | LOCK WAIT
+trx_started                | 2017-02-06 18:16:26
+trx_requested_lock_id      | 7B441:0:5172:49
+trx_wait_started           | 2017-02-06 18:16:26
+trx_weight                 | 2
+trx_mysql_thread_id        | 60
+trx_query                  | update account set nickname='aaabbb4' where `key`=11165
+trx_operation_state        | starting index read
+trx_tables_in_use          | 1
+trx_tables_locked          | 1
+trx_lock_structs           | 2
+trx_lock_memory_bytes      | 376
+trx_rows_locked            | 1
+trx_rows_modified          | 0
+trx_concurrency_tickets    | 0
+trx_isolation_level        | REPEATABLE READ
+trx_unique_checks          | 1
+trx_foreign_key_checks     | 1
+trx_last_foreign_key_error | None
+trx_adaptive_hash_latched  | 0
+trx_adaptive_hash_timeout  | 10000
+
+33.NODB_LOCK_WAITS
+
+保存等待锁的连接的信息
+requesting_trx_id 正在请求的事务ID，也就是等待锁的事务ID
+requested_lock_id 请求事务的ID获得锁成功后，会创建的锁ID
+blocking_trx_id 已经获取锁的事务ID
+blocking_lock_id 已经获取的锁ID
+
+requesting_trx_id | 7B444
+requested_lock_id | 7B444:0:5172:49
+blocking_trx_id   | 7B43F
+blocking_lock_id  | 7B43F:0:5172:49
+
+表示事务7B43F获得了锁7B43F:0:5172:49，事务7B444在等待锁，获取锁后，会创建锁7B444:0:5172:49
+34.INNODB_LOCKS
+
+保存InnoDB的锁信息。只有当存在等待锁的时候，这个表才会有数据。例如一个线程获得了锁，但是没有commit，这个表是没有数据的，当另一个线程等待锁，这个表会有两条数据，一个是已获得的锁，一个是等待的锁。
+lock_id 锁的ID，不要尝试解析ID的意义
+lock_trx_id 已经获取该锁的事务ID，和INNODB_TRX 表的trx_id对应
+lock_mode 锁的模式，官方介绍
+lock_type 锁的类型，RECORD （行锁），TABLE（表锁）
+lock_table 被锁的表名
+lock_index 如果是行锁，显示索引名
+lock_space 如果是行锁，显示表空间（Tablespace ）的ID
+lock_page 如果是行锁，显示被锁的行的页码
+lock_rec 如果是行锁，显示被锁的行的页码里面的堆栈号
+lock_data 被锁的行的主键的值，如果没有主键，显示InnoDB内部的行ID
+
+例子：
+
+lock_id     | 7B449:0:5172:49
+lock_trx_id | 7B449
+lock_mode   | X
+lock_type   | RECORD
+lock_table  | `test`.`account`
+lock_index  | `PRIMARY`
+lock_space  | 0
+lock_page   | 5172
+lock_rec    | 49
+lock_data   | 10001
+
+*** 二、常用的语法
+
+所有SHOW语法
+1.SHOW STATUS 语法
+
+SHOW [GLOBAL | SESSION] STATUS    [LIKE 'pattern' | WHERE expr]
+
+表中有Variable_name 和Value两个列。不区分大小写
+LIKE是WHERE的快捷方式
+例如这两个是等价的
+
+show global status like '%thread%' 
+show global status where Variable_name like '%thread%' 
+
+WHERE的功能更强大，例如：
+
+show global status where Value  =0 
+
+2.status说明
+
+所有状态的说明
+
+常用的：
+
+    Queries 执行的查询总数
+    Threads_connected 服务器连接数，如果使用线程池，这个指标变化不大
+    Threads_running 执行查询的线程数
+
+行锁相关：
+
+    Innodb_row_lock_current_waits 当前正在等待行锁的连接数
+    Innodb_row_lock_time 等待行锁耗费的时间，单位MS
+    Innodb_row_lock_time_avg 等待行锁耗费的平均时间
+    Innodb_row_lock_time_max 等待行锁耗费的最大时间
+    Innodb_row_lock_waits 一直以来等待行锁的连接数
+
+Com开头的：
+表示每个操作执行的次数，例如Com_select表示执行select操作的次数。
+3. SHOW VARIABLES 语法
+
+SHOW [GLOBAL | SESSION] VARIABLES  [LIKE 'pattern' | WHERE expr]
+
+跟show status类似
+4. variables说明
+
+所有变量的说明
+
+    innodb_lock_wait_timeout 等待行锁的超时时间
+
+5. SHOW PROCESSLIST语法
+
+SHOW [FULL] PROCESSLIST
+
+如果没有FULL，只会显示SQL语句的前100个字符
+SHOW PROCESSLIST 教程
+内容同PROCESSLIST表是一样的
+6. KILL语法
+
+官方说明
+7.SHOW PROFILE语法
+
+官方说明
+8. SHOW OPEN TABLES语法
+
+官方说明
+这个语法显示正在缓存中被打开的表。
+例子：
+
+Database    | db_kklauncher
+Table       | sleep_local_account
+In_use      | 1
+Name_locked | 0
+
+Database 数据库名
+Table 数据表名
+In_use 使用该表的客户端数量。一般是表示有多少个客户端在等待这个表的锁。
+Name_locked 表名是否被锁，一般只有删除表或还原表的时候，这个会等于1
+*** 三、常用命令
+
+    查看哪个事务获得了锁（只显示有连接在等待的锁）
+
+     select * from INNODB_LOCKS,`INNODB_TRX` where INNODB_TRX.trx_id=INNODB_LOCKS.lock_trx_id and INNODB_TRX.trx_state ='RUNNING'\G;
+
+    查看获得锁的连接情况
+
+     select l.lock_id ,l.lock_index,l.lock_data,p.id,p.command,p.time,p.host from information_schema.innodb_trx as t,information_schema.innodb_locks as l ,information_schema.processlist as p where t.trx_id=l.lock_trx_id and p.id=t.trx_mysql_thread_id and l.lock_id in (select distinct blocking_lock_id from information_schema.INNODB_LOCK_WAITS)
+
+*** 四、Innodb的锁
+
+锁相关说明
+假如有student表：
+
++----+------+------+-------+
+| id | name | age  | class |
++----+------+------+-------+
+|  1 | 2    |   20 | A     |
+|  2 | 1    |   22 | A     |
+|  3 | 1    |   23 | A     |
+|  4 | NULL |   24 | B     |
+|  5 | NULL |   24 | B     |
++----+------+------+-------+
+
+    连接A执行SQLupdate student set name='1' where class='A' ;，但是没有commit
+    这时如果连接B执行SQLupdate student set name='2' where id=1;，然后执行查看锁命令，结果是：
+
+                       lock_id: 7B600:0:40373:7
+                   lock_trx_id: 7B600
+                     lock_type: RECORD
+                    lock_table: `test`.`student`
+                    lock_index: `PRIMARY`
+                     lock_data: 0
+                   trx_started: 2017-02-07 17:19:33
+           trx_mysql_thread_id: 2
+              trx_lock_structs: 2
+               trx_rows_locked: 3
+             trx_rows_modified: 4
+
+    因为连接B等待id=0的行锁，所以这里只会显示lock_data=1，但是实际连接A是锁住了3条记录的（id 1-3），
+    事务ID7B600是连接A的事务ID
+    lock_index和lock_data是关联的，如果lock_index是PRIMARY，lock_data就是行记录的主键。如果lock_index是其他索引例如是索引my_index，而my_index索引的列是class，lock_data就会是A，3，也就是前面是索引列的值，后面是主键。
+    现在还不知道lock_index的索引是连接A还是连接B定位数据时使用的索引
+
+    连接A执行SQLupdate student set name='1' where class='B' ;,也就是更新id=4，5两条记录，但是没有commit
+    这时如果连接B执行SQLupdate student set name='2' where age<24;，也就是更新全部记录，接着连接C执行SQLupdate student set name='1' where id=1;，更新id=1这条记录。这样的结果是：连接A获取了id=4，5的锁，连接B获取了id=1，2，3的锁，正在等待id=4的锁，事务状态是LOCK_WAIT，连接C等待id=1的锁，事务状态也是LOCK_WAIT。
+
+
+** c++
+sudo apt install libmysqlclient-dev
+*** 存储过程返回值
+ c/c++调用mysql存储过程，并获得返回值
+文章来自：http://blog.csdn.net/jccz_zys/archive/2007/07/08/1682810.aspx
+
+    mysql5.0以后就支持存储过程了，目前mysql的6.0Alpha版也已经推出。6.0不仅支持大型数据库如oracle等的绝大部分功能，如存储过程、视图、触发器、job等等，而且修正了这些功能所存在的bug，其中6.0.1还支持64位windows，以及表空间。
+在c/c++中访问mysql，常见的只是一些简单的业务，使用c中嵌入简单的查询、插入、更新等操作即可。随着业务的复杂化，完成一个业务功能需要非常多的sql操作环节，把这些语句都嵌入c代码中会导致c代码越来越繁琐、不清晰，这时候，自然就想到了存储过程来封装所有的数据库逻辑，通过c简单调用mysql存储过程接口即可达到目的，极大地减轻了c程序员的工作量，也便于前端业务处理逻辑与数据库处理逻辑的分离。下面就介绍c语言调用存储过程的简单的方法。
+1、首先创建一张表
+用于存放用户信息
+Create table student(
+      id int auto_increment,
+      name varchar(20),
+      age tinyint,
+      remark varchar(50),
+       primary key(id)
+);
+2、插入几条信息
+Insert into student values(1,"zhouys",90, "");
+commit;
+3、查看用户信息
+mysql> select * from student;
++------+-----------+------+----------+
+| id   | name   | age | remark |
++------+-----------+------+----------+
+|    1 | zhouys |   90 |        |
++------+-----------+------+-----------+
+1 row in set (0.00 sec)
+ 
+mysql>
+4、创建存储过程
+如下：
+delimiter //
+ 
+create procedure querystudent(
+       in in_id int ,   #0- 字符id 1-数字id    
+       #
+       out out_ret int,                # 返回结果
+       out out_name varchar(20),        # 名字
+       out out_age   int                # 年龄    
+)
+label_a:begin
+       declare v_name varchar(20) ;
+       declare v_age tinyint ;
+       # 参数判断
+       if (in_id<=0) then
+              set out_ret=-1; #id error
+              leave label_a;
+       end if;
+             
+       SELECT name,age into v_name,v_age from student where id=in_id limit 1;
+      
+       if v_age is NULL then
+              set out_ret=-2; #don't found
+              leave label_a;
+       end if;    
+             
+       set out_ret=0;
+       set out_name=v_name;
+       set out_age=v_age;
+end;
+//
+delimiter ;
+5、c语言调用存储过程
+调用方法或步骤：
+5.1 、初始化 Mysql 句柄
+if(!mysql_init(&mysql))
+       {
+              printf("mysql_init failed!/n");
+              return 0;
+       }
+5.2 、连接到 mysql
+//login or connect
+       if(!mysql_real_connect(&mysql,"localhost","root","","billingdb",0,NULL,CLIENT_MULTI_STATEMENTS))
+       {
+              printf("mysql_real_connect() failed!/n");
+              mysql_close(&mysql);
+              return 0;
+       }
+5.3 、调用存储过程
+       //call
+       strcpy(query,"call querystudent (1,@ret,@ out_name,@ out_age)");
+       printf("query sql=[%s]/n",query);
+    ret= mysql_real_query(&mysql,query,(unsigned int)strlen(query));
+5.4 、查询结果集并保存
+mysql_query(&mysql, "SELECT @ret,@ out_name,@ out_age ");
+ 
+       //get result
+       if (ret)
+    {
+              printf("Error exec query: %s/n",mysql_error(&mysql));
+    }
+    else
+       {
+              printf("[%s] exec.../n", query);
+    }
+ 
+       results = mysql_store_result(&mysql);
+5.5 、获取查询结果
+while((record = mysql_fetch_row(results))) {
+              printf("[%s]-[%s]-[%s]/n", record[0], record[1],record[2]);
+       }
+一般存储过程只会有一行的返回结果，^_^.
+5.6 、释放资源与 mysql 连接句柄
+mysql_free_result(results);
+mysql_close(&mysql);
+** 数据库字段可扩展
+https://www.2cto.com/kf/201807/763181.html
+

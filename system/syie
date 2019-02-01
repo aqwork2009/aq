@@ -1,0 +1,5 @@
+#!/bin/bash
+cmd=$1
+case $cmd in
+    'boost') firefox https://www.boost.org/doc/libs/1_67_0/&
+esac

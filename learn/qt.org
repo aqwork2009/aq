@@ -299,8 +299,8 @@ QString ipResult = configIniRead->value("/ip/second").toString();
 
 
 
-** code error
-  解决方案：
+** environment error
+*** 解决方案 front error：
 
     1. 工具->选项->环境->语言: Chinese
 
@@ -313,3 +313,16 @@ QString ipResult = configIniRead->value("/ip/second").toString();
    改文件编码格式的工具，记事本另存选编码就可以。
 
    或者批量修改: 用EditPlus（好用）
+
+*** front input method
+https://blog.csdn.net/ouening/article/details/79588959
+*** right error
+chown -hR $USER:$USER qtcreator
+*** linux--安装完qt出现 /usr/bin/ld: error: cannot find -lGL错误
+sudo apt-get install libgl1-mesa-dev
+*** QT编译时 cc1plus进程占用大量内存卡死问题解决
+　　QT5.7 做一个demo编译时，内存几乎完全消耗，卡死。经尝试发现是添加资源文件过大导致（不知是单个文件过大触发还是文件总共过大触发）的。我的资源文件工136M,单个最大是125M左右。
+　　解决方法是再 QT的pro文件里添加：CONFIG += resources_big
+** 自定义快捷键
+C为ctrl M为alt
+设置活动项目 C+M + a
