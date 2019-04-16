@@ -666,3 +666,345 @@ char* str = ToString(123132);就成了str="123132";
     #define MEM_W( x ) ( *( (word *) (x) ) )
 
 
+** 类型转换
+类型转换机制可以分为:隐式类型转换 和 显示类型转换(强制类型转换)
+
+C中的类型转换:
+
+　　事情要从头说起,这个头就是C语言.我们已经习惯了使用C-like类型转换,因为它强大而且简单.
+
+主要有一下两种形式:
+
+ 
+
+    (new-type) expression
+    new-type (expression)
+
+ 
+
+C艹中的类型转换:
+
+隐式类型转换比较常见,在混合类型表达式中经常发生.比如在表达式中存在short和int,那么就过会发生整型提升.四种强制类型转换操作符：static_cast、dynamic_cast、const_cast、reinterpret_cast。
+
+1. static_cast与dynamic_cast:
+
+　　把这两个放在一起比较容易记忆,"一静一动".从字面上也可以看出,前者提供的是编译时期的静态类型检测,后者提供的是
+
+运行时检测.
+
+    static_cast： 1）完成基础数据类型，2）同一个继承体系中类型的转换 3）任意类型与空指针类型void*之间的转换。
+    dynamic_cast：使用多态的场景，增加了一层对真实调用对象类型的检查
+
+     char c  = 65;
+     int *p = (int *)&c;
+     cout<<(char)*p<<endl;//'A'
+     *p = 5;
+     int *q = static_cast<int *>(&c); //编译报错:error: invalid static_cast from type ‘char*’ to type ‘int*’
+
+ 
+
+　　在上面的例子中,Clike可以运行,然而修改过的*p如果使用,运行结果将会出现错误,而使用static_cast可以将错误在编译时期检查出,.
+
+　　在不同继承体系的自定义类型中:
+
+ 
+
+ 
+复制代码
+
+class A
+{
+public:
+  A(){}
+  ~A(){}
+
+private:
+  int i, j;
+};
+
+class C
+{
+public:
+  C(){}
+  ~C(){}
+
+  void printC()
+  {
+    std::cout <<"call printC() in class C" <<std::endl;
+  }
+private:
+  char c1, c2;
+};     
+
+    A *ptrA = new A();
+     C *ptrC = (C *)(ptrA);
+     ptrC->printC(); //"call printC() in class C"
+     //ptrC = static_cast<C*>(ptrA); //编译报错:error: invalid static_cast from type 'A*’ to type C*’
+
+复制代码
+
+ 
+
+　　上面A C是两个无关的类,然而使用Clike可以实现这种类型的强制转换,这是十分危险的! 使用static_cast可以将这种潜在的危险在编译器找出来.
+
+　　在同一继承体系中:
+
+　　upcast(向上转换即子类转成父类):没有问题.因为父类的行为都包含在子类中;
+
+　　downcast(向下转换):有可能会出现问题,编译时可能不会发现.
+
+　　一个类的行为和自身的类型相关.也就是一个A类型的指针总会优先调用自己A类内的函数,当然发生继承中的重写(虚继承等)例外.
+复制代码
+
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+class A
+{
+public:
+  A():i(1), j(1){}
+  ~A(){}
+
+  void printA()
+  {
+    std::cout <<"call printA() in class A" <<std::endl;
+  }
+
+  void printSum()
+  {
+    std::cout <<"sum = " <<i+j <<std::endl;
+  }
+
+private:
+  int i, j;
+};
+
+class B : public A
+{
+public:
+  B():a(2), b(2) {}
+  ~B(){}
+
+  void printB()
+  {
+    std::cout <<"call printB() in class B" <<std::endl;
+  }
+
+  void printSum()
+  {
+    std::cout <<"sum = " <<a+b <<std::endl;
+  }
+
+  void Add()
+  {
+    a++;
+    b++;
+  }
+
+private:
+  double a, b;
+};
+int main()
+{
+     B *ptrB = new B;
+     ptrB -> printSum();
+     A *ptrA = static_cast<B *>(ptrB);
+     ptrA -> printA();
+     ptrA -> printSum();
+     //打印结果：sum = 2
+     //在进行upcast的时候，指针指向的对象的行为与指针的类型相关。
+
+     ptrA = new A;
+     ptrB = static_cast<B *>(ptrA);
+     ptrB -> printB();
+     ptrB -> printSum();
+     //打印结果：sum = 0
+     //在进行downcast的时候，其行为是“undefined”。
+
+
+     B b;
+     B &rB = b;
+     rB.printSum();
+     //打印结果: sum = 4
+     A &rA = static_cast<A &>(b);
+     rA.printA();
+     rA.printSum();
+     //打印结果: sum = 2
+     //在进行upcast的时候,指针指向的对象的行为与引用类型相关.
+
+     A a;
+     A &rA1 = a;
+     rA.printSum();
+     B &rB1 = static_cast<B &>(a);
+     rB1.printB();
+　　　//打印结果：sum = 4 
+     rB1.printSum();
+     //打印结果 :sum = 1.45863e-316
+     //在进行downcast的时候，其行为是“undefined”。
+
+     return 0;
+}
+
+复制代码
+
+　　这里其实很明显,在downcast转换的时候,会出现一些跟指针或者引用类型相关的函数调用,但是因为指针或者引用(父类)
+
+没有定义这些行为,因为调用到了这些行为导致出现了未定义的行为.
+
+　　明显解决这个问题的办法就是,虚函数!如果声明A类中的printSum未 虚函数,那么子类B就会有一个虚表,虚表中的第一个函数就是printSum函数其实是
+
+B类的该函数.所以,A类指针调用该函数就会调用B类中的该函数 显示结果sum= 4. 在未定义之前sum = 2(A类中的该函数).
+
+　　PS:引用类型必须被初始化,这是引用和指针类型的重要区别.
+
+　　总之,就是尽可能不要使用downcast也就是 使用子类的指针指向父类.
+
+　　感觉这里又不得不说,c++内存对象的对齐方式.所以 ,在另外一篇blog<c++内存的对齐方式>中理清楚这些问题.
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+dynamic_cast
+1.dynamic_cast是在运行时检查的，用于在集成体系中进行安全的向下转换downcast(当然也可以向上转换，但没必要，因为可以用虚函数实现)
+
+   即：基类指针/引用 -> 派生类指针/引用
+
+   如果源和目标没有继承/被继承关系，编译器会报错！
+2.dynamic_cast是4个转换中唯一的RTTI操作符，提供运行时类型检查。
+3.dynamic_cast不是强制转换，而是带有某种”咨询“性质的，如果不能转换，返回NULL。这是强制转换做不到的。
+
+4.源类中必须要有虚函数，保证多态，才能使用dynamic_cast<source>(expression)
+static_cast
+
+用法：static_cast < type-id > ( expression )
+
+该运算符把expression转换为type-id类型，在编译时使用类型信息执行转换，在转换执行必要的检测（指针越界，类型检查），其操作数相对是安全的。
+
+但没有运行时类型检查来保证转换的安全性。
+reinterpret_cast
+
+仅仅是复制n1的比特位到d_r, 没有进行必要的分析.interpret_cast是为了映射到一个完全不同类型\
+的意思，这个关键词在我们需要把类型映射回原有类型时用到它。我们映射到的类型仅仅是为了故弄\
+玄虚和其他目的，这是所有映射中最危险的。(这句话是C++编程思想中的原话
+const_cast
+
+去除const常量属性，使其可以修改
+
+and
+
+volatile属性的转换  易变类型<->不同类型.
+Code：
+复制代码
+
+#include <iostream>
+#include <cstdio>
+#include <string>
+
+using namespace std;
+
+class A {
+    public:
+    A(){};
+    int m_a;
+};
+
+class B {
+    public:
+    int m_b;
+};
+
+class C : public A, public B {};
+
+int main()
+{
+    const A a;
+    //a.num = 1;
+    const_cast<A&>(a).m_a = 2;
+    //a.num = 3;编译不能通过，说明const_cast只能转换一次，不是永久脱离原有const属性
+    cout<<a.m_a<<endl;
+    int n = 9;
+    double d_s = static_cast<double>(n);
+    double d_r = reinterpret_cast<double&>(n);
+    cout<<d_r<<endl;//4.24399e-314
+    //在进行计算以后, d_r包含无用值. 这是因为 reinterpret_cast\
+     仅仅是复制n1的比特位到d_r, 没有进行必要的分析.interpret_cast是为了映射到一个完全不同类型\
+     的意思，这个关键词在我们需要把类型映射回原有类型时用到它。我们映射到的类型仅仅是为了故弄\
+     玄虚和其他目的，这是所有映射中最危险的。(这句话是C++编程思想中的原话
+
+    C c;
+    printf("%p, %p, %p\n", &c, reinterpret_cast<B*>(&c), static_cast <B*>(&c));
+    //前两个的输出值是相同的，最后一个则会在原基础上偏移4个字节，这是因为static_cast计算了父子类指针转换的偏移量，\
+    并将之转换到正确的地址（c里面有m_a,m_b，转换为B*指针后指到m_b处），而reinterpret_cast却不会做这一层转换\
+    因此, 你需要谨慎使用 reinterpret_cast.
+
+
+    return 0;
+}
+
+复制代码
+
+ 
+复制代码
+
+#include <iostream>
+#include <typeinfo>
+#include <cstdio>
+
+using namespace std;
+
+class A{
+public:
+    virtual void foo(){
+        cout<<"A foo"<<endl;
+    }
+    //虚函数的出现会带来动态机制 Class A 至少要有一个虚函数
+    void pp(){
+        cout<<"A pp"<<endl;
+    }
+};
+
+class B: public A{
+public:
+    void foo(){
+        cout<<"B foo"<<endl;
+    }
+    void pp(){
+        cout<<"B PP"<<endl;
+    }
+    void functionB(){
+        cout<<"Excute FunctionB!"<<endl;
+    }
+};
+
+int main()
+{
+    B b;
+    A *pa = &b;
+    pa->foo();
+    pa->pp();
+    //基类指针可以指向派生类，但是只能调用基类和派生类都存在的成员，也就是说不能调用派生类中新增的成员！
+    //pa->FunctionB();//error: 'class A' has no member named 'FunctionB'
+    if(dynamic_cast<B*>(pa) == NULL){
+        cout<<"NULL"<<endl;
+    }else{
+        cout<<typeid((dynamic_cast<B*>(pa))).name()<<endl;
+        dynamic_cast<B*>(pa)->foo();
+        dynamic_cast<B*>(pa)->pp();
+        dynamic_cast<B*>(pa)->functionB();
+    }
+    A aa;
+    //B *pb = &aa;派生类不能指向基类
+    B *pbNull = NULL;
+    pbNull->functionB();//fine
+    pbNull->pp();//fine
+    //pbNull->functionB(); crash！foo调用了虚函数，编译器需要根据对象的虚函数指针查找虚函数表，但为空，crash!
+    return 0;
+}

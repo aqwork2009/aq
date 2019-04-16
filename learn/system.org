@@ -211,6 +211,7 @@ tar zxvf ***..tar.gz
 rar a etc.rar /etc
 rar x etc.rar 
 unrar -e etc.tar
+tar -xvf hmt.tar.bz2 --one-top-level=hmt_n
 
 
 *** 7z
@@ -946,4 +947,21 @@ sudo apt-get autoremove
 然后sudo reboot
 重启之后，桌面就变成ubuntu 14.04 原生桌面了.
 
+
+** 文件比较
+ [Linux] Ubuntu下的文件比较工具--meld
+
+在ubuntu中需要比较文件的差异，于是安装meld
+
+apt-get install meld
+
+ 
+
+安装完后，在/usr/bin/下找到meld,然后发送到桌面上，
+
+或者在命令行执行meld命令
+
+ 
+
+打开后选择：file->new ,打开文件选择界面，输入两个文件的路径，后即可看到两个文件的差异情况。
 
